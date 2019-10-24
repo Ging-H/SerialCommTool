@@ -1,0 +1,44 @@
+/* QToolBox */
+QToolBox{
+border-width:1px;                        /* 边界宽度  */
+border-style:solid;                      /* 边界样式  */
+border-radius:4px;                       /* 边界圆角半径 */
+border-color: rgb(130, 135, 144);        /* 边界前景色 */
+font:bold ;                              /* 字体样式：粗体 */
+}
+QToolBox::Tab:selected{                  /*QToolBox的Tab，被选中*/
+background-color: rgb(191, 255, 191);    /*背景色*/
+padding-left:60px;                       /*距离左边的宽度*/
+color: rgb(0, 0, 0);                     /*字体颜色*/
+font: bold;                              /*字体样式：粗体*/
+}
+QToolBox::Tab:!selected{                 /*QToolBox的Tab，未被选中*/
+color: rgb(215, 215, 215);               /*字体颜色*/
+padding-left:60px;                       /*距离左边的宽度*/
+}
+
+/*QPushButton*/
+QPushButton:hover{                       /*鼠标悬停*/
+color: rgb(255, 255, 127);               /*字体颜色*/
+background-color: rgb(103, 103, 103);    /*背景色*/
+}
+QPushButton:!hover{                      /*鼠标非离开*/
+background-color: rgb(103, 103, 103);    /*字体颜色*/
+color: rgb(85, 170, 255);                /*前景颜色*/
+}
+
+/*QGroupBox*/
+QGroupBox{
+border-width:1px;                        /*边界宽度*/
+border-style:solid;                      /*边界样式*/
+border-radius:4px;                       /*边界圆角半径*/
+border-color: rgb(130, 135, 144);        /*边界颜色*/
+font:bold ;                              /*字体样式*/
+color: rgb(215, 215, 215);               /*字体颜色*/
+}
+
+/*QWidget */
+QWidget{
+background-color:rgb(48, 47, 47);        /*全局背景色*/
+}
+
