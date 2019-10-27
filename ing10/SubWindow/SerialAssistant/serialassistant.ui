@@ -84,7 +84,7 @@ font:bold ;
      <string>ms</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_6">
+   <widget class="QPushButton" name="btnSaveFile">
     <property name="geometry">
      <rect>
       <x>11</x>
@@ -425,6 +425,9 @@ font:bold ;
    </widget>
   </widget>
   <widget class="QProgressBar" name="progressBar">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -434,7 +437,7 @@ font:bold ;
     </rect>
    </property>
    <property name="cursor">
-    <cursorShape>WaitCursor</cursorShape>
+    <cursorShape>ArrowCursor</cursorShape>
    </property>
    <property name="maximum">
     <number>100</number>
@@ -443,7 +446,7 @@ font:bold ;
     <number>0</number>
    </property>
    <property name="textVisible">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="invertedAppearance">
     <bool>false</bool>
@@ -459,7 +462,7 @@ font:bold ;
     </rect>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="page_1">
     <property name="geometry">
@@ -706,11 +709,15 @@ font:bold ;
      </item>
      <item row="0" column="1">
       <widget class="QComboBox" name="cbbPortNum">
-       <item>
-        <property name="text">
-         <string>  COM3</string>
-        </property>
-       </item>
+       <property name="maxVisibleItems">
+        <number>20</number>
+       </property>
+       <property name="sizeAdjustPolicy">
+        <enum>QComboBox::AdjustToContents</enum>
+       </property>
+       <property name="minimumContentsLength">
+        <number>0</number>
+       </property>
       </widget>
      </item>
      <item row="1" column="0">
@@ -724,7 +731,11 @@ font:bold ;
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QComboBox" name="cbbBaud"/>
+      <widget class="QComboBox" name="cbbBaud">
+       <property name="sizeAdjustPolicy">
+        <enum>QComboBox::AdjustToContents</enum>
+       </property>
+      </widget>
      </item>
      <item row="2" column="0">
       <widget class="QLabel" name="lblDataBit">
@@ -737,7 +748,11 @@ font:bold ;
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="QComboBox" name="cbbDataBit"/>
+      <widget class="QComboBox" name="cbbDataBit">
+       <property name="sizeAdjustPolicy">
+        <enum>QComboBox::AdjustToContents</enum>
+       </property>
+      </widget>
      </item>
      <item row="3" column="0">
       <widget class="QLabel" name="lblVerify">
@@ -760,10 +775,18 @@ font:bold ;
       </widget>
      </item>
      <item row="4" column="1">
-      <widget class="QComboBox" name="cbbStopBit"/>
+      <widget class="QComboBox" name="cbbStopBit">
+       <property name="sizeAdjustPolicy">
+        <enum>QComboBox::AdjustToContents</enum>
+       </property>
+      </widget>
      </item>
      <item row="3" column="1">
-      <widget class="QComboBox" name="cbbVerify"/>
+      <widget class="QComboBox" name="cbbVerify">
+       <property name="sizeAdjustPolicy">
+        <enum>QComboBox::AdjustToContents</enum>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>

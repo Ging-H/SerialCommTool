@@ -37,7 +37,7 @@ public:
     QSpinBox *spbRxTimeOut;
     QLabel *lblDivision;
     QLabel *lblUnit_ms;
-    QPushButton *pushButton_6;
+    QPushButton *btnSaveFile;
     QPushButton *btnClear;
     QPushButton *btnPause;
     QCheckBox *chkDisplayHex;
@@ -141,9 +141,9 @@ public:
         lblUnit_ms = new QLabel(QGBCtrlRx);
         lblUnit_ms->setObjectName(QStringLiteral("lblUnit_ms"));
         lblUnit_ms->setGeometry(QRect(130, 111, 16, 16));
-        pushButton_6 = new QPushButton(QGBCtrlRx);
-        pushButton_6->setObjectName(QStringLiteral("pushButton_6"));
-        pushButton_6->setGeometry(QRect(11, 51, 151, 23));
+        btnSaveFile = new QPushButton(QGBCtrlRx);
+        btnSaveFile->setObjectName(QStringLiteral("btnSaveFile"));
+        btnSaveFile->setGeometry(QRect(11, 51, 151, 23));
         btnClear = new QPushButton(QGBCtrlRx);
         btnClear->setObjectName(QStringLiteral("btnClear"));
         btnClear->setGeometry(QRect(11, 21, 72, 20));
@@ -269,11 +269,12 @@ public:
         btnTxFile->setGeometry(QRect(89, 22, 71, 20));
         progressBar = new QProgressBar(SerialAssistant);
         progressBar->setObjectName(QStringLiteral("progressBar"));
+        progressBar->setEnabled(true);
         progressBar->setGeometry(QRect(10, 650, 171, 16));
-        progressBar->setCursor(QCursor(Qt::WaitCursor));
+        progressBar->setCursor(QCursor(Qt::ArrowCursor));
         progressBar->setMaximum(100);
         progressBar->setValue(0);
-        progressBar->setTextVisible(false);
+        progressBar->setTextVisible(true);
         progressBar->setInvertedAppearance(false);
         toolBox = new QToolBox(SerialAssistant);
         toolBox->setObjectName(QStringLiteral("toolBox"));
@@ -433,6 +434,9 @@ public:
 
         cbbPortNum = new QComboBox(formLayoutWidget);
         cbbPortNum->setObjectName(QStringLiteral("cbbPortNum"));
+        cbbPortNum->setMaxVisibleItems(20);
+        cbbPortNum->setSizeAdjustPolicy(QComboBox::AdjustToContents);
+        cbbPortNum->setMinimumContentsLength(0);
 
         gridLayout_3->addWidget(cbbPortNum, 0, 1, 1, 1);
 
@@ -443,6 +447,7 @@ public:
 
         cbbBaud = new QComboBox(formLayoutWidget);
         cbbBaud->setObjectName(QStringLiteral("cbbBaud"));
+        cbbBaud->setSizeAdjustPolicy(QComboBox::AdjustToContents);
 
         gridLayout_3->addWidget(cbbBaud, 1, 1, 1, 1);
 
@@ -453,6 +458,7 @@ public:
 
         cbbDataBit = new QComboBox(formLayoutWidget);
         cbbDataBit->setObjectName(QStringLiteral("cbbDataBit"));
+        cbbDataBit->setSizeAdjustPolicy(QComboBox::AdjustToContents);
 
         gridLayout_3->addWidget(cbbDataBit, 2, 1, 1, 1);
 
@@ -468,11 +474,13 @@ public:
 
         cbbStopBit = new QComboBox(formLayoutWidget);
         cbbStopBit->setObjectName(QStringLiteral("cbbStopBit"));
+        cbbStopBit->setSizeAdjustPolicy(QComboBox::AdjustToContents);
 
         gridLayout_3->addWidget(cbbStopBit, 4, 1, 1, 1);
 
         cbbVerify = new QComboBox(formLayoutWidget);
         cbbVerify->setObjectName(QStringLiteral("cbbVerify"));
+        cbbVerify->setSizeAdjustPolicy(QComboBox::AdjustToContents);
 
         gridLayout_3->addWidget(cbbVerify, 3, 1, 1, 1);
 
@@ -498,7 +506,7 @@ public:
 
         retranslateUi(SerialAssistant);
 
-        toolBox->setCurrentIndex(1);
+        toolBox->setCurrentIndex(0);
         btnOpenPort->setDefault(false);
 
 
@@ -511,7 +519,7 @@ public:
         QGBCtrlRx->setTitle(QApplication::translate("SerialAssistant", "\351\200\232\347\224\250\346\216\245\346\224\266\346\216\247\345\210\266", Q_NULLPTR));
         lblDivision->setText(QApplication::translate("SerialAssistant", "\345\210\206\345\214\205\351\227\264\351\232\224", Q_NULLPTR));
         lblUnit_ms->setText(QApplication::translate("SerialAssistant", "ms", Q_NULLPTR));
-        pushButton_6->setText(QApplication::translate("SerialAssistant", "\344\277\235\345\255\230\350\207\263\346\226\207\344\273\266...", Q_NULLPTR));
+        btnSaveFile->setText(QApplication::translate("SerialAssistant", "\344\277\235\345\255\230\350\207\263\346\226\207\344\273\266...", Q_NULLPTR));
         btnClear->setText(QApplication::translate("SerialAssistant", "\346\270\205\347\251\272", Q_NULLPTR));
         btnPause->setText(QApplication::translate("SerialAssistant", "\346\232\202\345\201\234", Q_NULLPTR));
         chkDisplayHex->setText(QApplication::translate("SerialAssistant", "Hex\346\230\276\347\244\272", Q_NULLPTR));
@@ -566,10 +574,6 @@ public:
         QGBSerialConfig->setTitle(QApplication::translate("SerialAssistant", "\344\270\262\345\217\243\350\256\276\347\275\256", Q_NULLPTR));
         btnOpenPort->setText(QApplication::translate("SerialAssistant", "\346\211\223\345\274\200\344\270\262\345\217\243", Q_NULLPTR));
         lblPortNum->setText(QApplication::translate("SerialAssistant", "\347\253\257\345\217\243\345\217\267(&C)", Q_NULLPTR));
-        cbbPortNum->clear();
-        cbbPortNum->insertItems(0, QStringList()
-         << QApplication::translate("SerialAssistant", "  COM3", Q_NULLPTR)
-        );
         lblBaudRate->setText(QApplication::translate("SerialAssistant", "\346\263\242\347\211\271\347\216\207", Q_NULLPTR));
         lblDataBit->setText(QApplication::translate("SerialAssistant", "\346\225\260\346\215\256\344\275\215", Q_NULLPTR));
         lblVerify->setText(QApplication::translate("SerialAssistant", "\346\240\241\351\252\214", Q_NULLPTR));
