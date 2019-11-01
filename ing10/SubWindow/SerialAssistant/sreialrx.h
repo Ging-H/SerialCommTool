@@ -7,6 +7,12 @@ class SreialRx
 {
 public:
     SreialRx();
+
+
+//slots:
+
+
+
 };
 
 #endif // SREIALRX_H

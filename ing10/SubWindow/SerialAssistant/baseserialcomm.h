@@ -37,6 +37,8 @@ public:
     static void listDataBit(QComboBox *cbbDataBit);
     static void listPortNum(QComboBox *cbbPortNum);
     static void searchPort(QStringList &portList);
+    qint32 readData(QByteArray &rxBuffer);
+    qint32 writtenData(QString txBuffer);
     void setDTRState(bool set);
     void setRTSState(bool set);
 

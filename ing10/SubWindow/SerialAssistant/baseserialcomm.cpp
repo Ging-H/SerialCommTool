@@ -16,7 +16,7 @@ void BaseSerialComm::listBaudRate(QComboBox *cbbBaud)
     for (int i = 0; i < mtaEnum.keyCount(); i++) {
         tmp = QString::number(mtaEnum.value(i));
         cbbBaud->addItem(tmp, mtaEnum.value(i));
-        qDebug() << tmp;
+//        qDebug() << tmp;
         /* 删除未知值 */
         if(mtaEnum.value(i)== BaseSerialComm::BaudRate::UnknownBaud ){
             cbbBaud->removeItem(i);
@@ -119,4 +119,24 @@ void BaseSerialComm::setDTRState(bool set)
 void BaseSerialComm::setRTSState(bool set)
 {
     this->setRequestToSend(set);
+}
+
+/* 读取串口缓存中的数据 ,返回0代表没有接收到数据*/
+qint32 BaseSerialComm::readData(QByteArray &rxBuffer)
+{
+    rxBuffer = this->readAll();
+    if(rxBuffer.isEmpty()){
+        return 0;
+    }
+    else {
+        return rxBuffer.length();
+    }
+}
+
+/* 往串口写入数据 */
+/* 返回-1代表写入错误*/
+qint32 BaseSerialComm::writtenData(QString txBuffer)
+{
+    QByteArray tmpBuffer = txBuffer.toLatin1();
+    return this->write(tmpBuffer);
 }
