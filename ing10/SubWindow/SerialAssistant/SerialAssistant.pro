@@ -25,19 +25,20 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
-        main.cpp \
-        serialassistant.cpp \
-        baseserialcomm.cpp \
-        sreialrx.cpp
+    baseserialcomm.cpp \
+    main.cpp \
+    serialassistant.cpp \
+    sreialrx.cpp
+
 
 HEADERS += \
-        serialassistant.h \
-        ui_serialassistant.h \
-        baseserialcomm.h \
-        sreialrx.h
+    baseserialcomm.h \
+    serialassistant.h \
+    sreialrx.h \
+    ui_serialassistant.h
 
 FORMS += \
-        serialassistant.ui
+    serialassistant.ui
 
 
 

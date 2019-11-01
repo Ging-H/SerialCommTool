@@ -4,6 +4,10 @@
 #include <QWidget>
 #include <QSerialPortInfo>
 #include "baseserialcomm.h"
+#include <QTimer>
+#include <QTime>
+#include <QFile>
+#include <QTextStream>
 
 namespace Ui {
 class SerialAssistant;
@@ -21,9 +25,21 @@ public:
     static bool rxPause ;      // 暂停接收
     static QString terminator; // 结束符    <NONE,CR,CR/LF,LF>
     static QString verifyType; // 校验码类型 <NONE,ADD8,XOR8...>
+    QTimer *rxTimer; // 接收用的定时器
+
+    QFile   *saveFile;
+    QFile   *loadFile;
+    QTextStream *streamToSave;
+
+    BaseSerialComm *currentPort;   // 端口号
 
     void initComboBox_Config();    // 初始化串口配置的下拉列表(ComboBox)
-    BaseSerialComm *currentPort;   // 端口号
+//    void insertSpace(QByteArray &array);
+    QByteArray insertSpace(QByteArray &array);
+
+
+public slots:
+    void slots_serialRxCallback();
 
 private slots:
     void on_btnOpenPort_clicked();
@@ -34,11 +50,25 @@ private slots:
 
     void on_chkFlowCtrlRTS_toggled(bool checked);
 
-    void on_btnClear_clicked();
+//    void on_btnClear_clicked();
 
     void on_btnSaveFile_clicked();
 
     void on_btnLoadFile_clicked();
+
+
+    void on_textBrower_textChanged();
+
+
+    void on_checkBox_5_toggled(bool checked);
+
+
+    void on_btnSend_clicked();
+
+    void on_txtSingle_textChanged();
+
+    void on_toolBox_currentChanged(int index);
+
 
 private:
     Ui::SerialAssistant *ui;
