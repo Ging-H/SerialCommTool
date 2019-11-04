@@ -93,6 +93,7 @@ void BaseSerialComm::listPortNum(QComboBox *cbbPortNum)
         }
         qint32 fontSize = cbbPortNum->font().pointSize(); // 获取所用字体大小
         cbbPortNum->view()->setFixedWidth( len * fontSize * 0.75 ); // 调整显示宽度,字符数*字符宽度*0.75
+
     }
     else{
         QMessageBox::information(NULL, "无串口设备",  "没有搜索到串口设备", 0, 0);

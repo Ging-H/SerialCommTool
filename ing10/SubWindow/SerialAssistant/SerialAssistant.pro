@@ -28,14 +28,16 @@ SOURCES += \
     baseserialcomm.cpp \
     main.cpp \
     serialassistant.cpp \
-    sreialrx.cpp
+    newpushbutton.cpp
 
 
 HEADERS += \
     baseserialcomm.h \
     serialassistant.h \
     sreialrx.h \
-    ui_serialassistant.h
+    ui_serialassistant.h \
+    newpushbutton.h
+
 
 FORMS += \
     serialassistant.ui
