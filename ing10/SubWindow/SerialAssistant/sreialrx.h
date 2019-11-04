@@ -2,17 +2,14 @@
 #define SREIALRX_H
 
 #include <QObject>
+#include <QPushButton>
 
-class SreialRx
+class SreialRx :public QPushButton
 {
+    Q_OBJECT
 public:
     SreialRx();
-
-
-//slots:
-
-
-
+    QString *lineEditText;
 };
 
 #endif // SREIALRX_H

@@ -25,7 +25,8 @@ public:
     static bool rxPause ;      // 暂停接收
     static QString terminator; // 结束符    <NONE,CR,CR/LF,LF>
     static QString verifyType; // 校验码类型 <NONE,ADD8,XOR8...>
-    QTimer *rxTimer; // 接收用的定时器
+    QTimer rxTimer; // 接收用的定时器
+    QTimer txTimer; // 发送用的定时器
 
     QFile   *saveFile;
     QFile   *loadFile;
@@ -36,10 +37,20 @@ public:
     void initComboBox_Config();    // 初始化串口配置的下拉列表(ComboBox)
 //    void insertSpace(QByteArray &array);
     QByteArray insertSpace(QByteArray &array);
+    void configPort();
+    void deleteRxTimer();
+    void startRxTimer();
+    void deleteTxTimer();
+    void startTxTimer();
+
 
 
 public slots:
     void slots_serialRxCallback();
+    void slots_errorHandler(QSerialPort::SerialPortError error);
+    void slots_highlightLine();
+    void slots_timeOutTx();
+    void slots_multiSend();
 
 private slots:
     void on_btnOpenPort_clicked();
@@ -50,25 +61,24 @@ private slots:
 
     void on_chkFlowCtrlRTS_toggled(bool checked);
 
-//    void on_btnClear_clicked();
-
     void on_btnSaveFile_clicked();
 
     void on_btnLoadFile_clicked();
 
-
     void on_textBrower_textChanged();
-
-
-    void on_checkBox_5_toggled(bool checked);
-
 
     void on_btnSend_clicked();
 
     void on_txtSingle_textChanged();
 
-    void on_toolBox_currentChanged(int index);
+    void on_chbTimedTx_clicked(bool checked);
 
+    void on_checkBox_5_clicked(bool checked);
+
+    void on_spbTxInterval_editingFinished();
+//    void on_btnMultiPush01_clicked();
+
+    void on_chbTxHex_clicked(bool checked);
 
 private:
     Ui::SerialAssistant *ui;

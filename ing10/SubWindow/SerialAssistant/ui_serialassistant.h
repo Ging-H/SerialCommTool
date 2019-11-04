@@ -42,7 +42,7 @@ public:
     QPushButton *btnClear;
     QPushButton *btnPause;
     QGroupBox *QGBCtrlTx;
-    QSpinBox *spinBox_2;
+    QSpinBox *spbTxInterval;
     QLabel *lblUnit_ms_2;
     QLabel *lblTimedTx;
     QWidget *layoutWidget4;
@@ -63,48 +63,45 @@ public:
     QLabel *lblByteNum;
     QLineEdit *lineEdit_2;
     QComboBox *cbbVerifyStyle;
-    QWidget *layoutWidget2;
-    QHBoxLayout *horizontalLayout_4;
     QPushButton *btnLoadFile;
     QPushButton *btnTxFile;
-    QProgressBar *progressBar;
     QToolBox *toolBox;
-    QWidget *page_1;
+    QWidget *single;
     QPushButton *btnSend;
     QPlainTextEdit *txtSingle;
-    QWidget *page_2;
+    QWidget *multi;
     QWidget *layoutWidget7;
     QGridLayout *gridLayout_2;
-    QPushButton *btnMultiPush10;
-    QLineEdit *txtLine10;
-    QLineEdit *txtLine09;
-    QPushButton *btnMultiPush09;
-    QCheckBox *chkMulti02;
+    QLineEdit *txtLine01;
     QPushButton *btnMultiPush02;
     QPushButton *btnMultiPush06;
     QLineEdit *txtLine03;
-    QLineEdit *txtLine01;
-    QPushButton *btnMultiPush03;
-    QLineEdit *txtLine02;
-    QPushButton *btnMultiPush04;
+    QCheckBox *chkMulti02;
+    QPushButton *btnMultiPush09;
     QPushButton *btnMultiPush05;
     QLineEdit *txtLine04;
+    QPushButton *btnMultiPush04;
+    QPushButton *btnMultiPush03;
+    QLineEdit *txtLine02;
     QLineEdit *txtLine05;
     QPushButton *btnMultiPush01;
-    QLineEdit *txtLine06;
-    QLineEdit *txtLine08;
     QPushButton *btnMultiPush07;
-    QLineEdit *txtLine07;
-    QPushButton *btnMultiPush08;
-    QCheckBox *chkMulti01;
+    QLineEdit *txtLine08;
+    QLineEdit *txtLine06;
     QCheckBox *chkMulti05;
     QCheckBox *chkMulti03;
+    QCheckBox *chkMulti01;
+    QLineEdit *txtLine07;
+    QPushButton *btnMultiPush08;
     QCheckBox *chkMulti04;
     QCheckBox *chkMulti06;
-    QCheckBox *chkMulti07;
-    QCheckBox *chkMulti08;
     QCheckBox *chkMulti09;
+    QCheckBox *chkMulti08;
     QCheckBox *chkMulti10;
+    QCheckBox *chkMulti07;
+    QLineEdit *txtLine10;
+    QPushButton *btnMultiPush10;
+    QLineEdit *txtLine09;
     QGroupBox *QGBSerialConfig;
     QPushButton *btnOpenPort;
     QWidget *formLayoutWidget;
@@ -122,19 +119,21 @@ public:
     QPushButton *btnRefresh;
     QCheckBox *chkFlowCtrlDTR;
     QCheckBox *chkFlowCtrlRTS;
-    QWidget *layoutWidget3;
+    QPlainTextEdit *textBrower;
+    QGroupBox *groupBox;
+    QWidget *layoutWidget2;
     QHBoxLayout *horizontalLayout;
     QLabel *label;
     QLabel *lblrxCnt;
     QLabel *label_2;
-    QLabel *lblrxCnt_2;
-    QPlainTextEdit *textBrower;
+    QLabel *lbltxCnt;
+    QProgressBar *progressBar;
 
     void setupUi(QWidget *SerialAssistant)
     {
         if (SerialAssistant->objectName().isEmpty())
             SerialAssistant->setObjectName(QStringLiteral("SerialAssistant"));
-        SerialAssistant->resize(1090, 678);
+        SerialAssistant->resize(1090, 704);
         SerialAssistant->setStyleSheet(QStringLiteral(""));
         QGBCtrlRx = new QGroupBox(SerialAssistant);
         QGBCtrlRx->setObjectName(QStringLiteral("QGBCtrlRx"));
@@ -187,14 +186,14 @@ public:
 "}"));
         QGBCtrlTx->setFlat(false);
         QGBCtrlTx->setCheckable(false);
-        spinBox_2 = new QSpinBox(QGBCtrlTx);
-        spinBox_2->setObjectName(QStringLiteral("spinBox_2"));
-        spinBox_2->setGeometry(QRect(65, 230, 61, 18));
-        spinBox_2->setMinimumSize(QSize(61, 18));
-        spinBox_2->setAutoFillBackground(false);
-        spinBox_2->setMinimum(30);
-        spinBox_2->setMaximum(99999);
-        spinBox_2->setValue(99);
+        spbTxInterval = new QSpinBox(QGBCtrlTx);
+        spbTxInterval->setObjectName(QStringLiteral("spbTxInterval"));
+        spbTxInterval->setGeometry(QRect(65, 230, 61, 18));
+        spbTxInterval->setMinimumSize(QSize(61, 18));
+        spbTxInterval->setAutoFillBackground(false);
+        spbTxInterval->setMinimum(30);
+        spbTxInterval->setMaximum(99999);
+        spbTxInterval->setValue(99);
         lblUnit_ms_2 = new QLabel(QGBCtrlTx);
         lblUnit_ms_2->setObjectName(QStringLiteral("lblUnit_ms_2"));
         lblUnit_ms_2->setGeometry(QRect(130, 230, 16, 16));
@@ -281,81 +280,40 @@ public:
         cbbVerifyStyle = new QComboBox(QGBCtrlTx);
         cbbVerifyStyle->setObjectName(QStringLiteral("cbbVerifyStyle"));
         cbbVerifyStyle->setGeometry(QRect(11, 101, 151, 22));
-        layoutWidget2 = new QWidget(QGBCtrlTx);
-        layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
-        layoutWidget2->setGeometry(QRect(11, 22, 151, 25));
-        horizontalLayout_4 = new QHBoxLayout(layoutWidget2);
-        horizontalLayout_4->setSpacing(6);
-        horizontalLayout_4->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
-        horizontalLayout_4->setContentsMargins(0, 0, 0, 0);
-        btnLoadFile = new QPushButton(layoutWidget2);
+        btnLoadFile = new QPushButton(QGBCtrlTx);
         btnLoadFile->setObjectName(QStringLiteral("btnLoadFile"));
-
-        horizontalLayout_4->addWidget(btnLoadFile);
-
-        btnTxFile = new QPushButton(layoutWidget2);
+        btnLoadFile->setGeometry(QRect(12, 24, 72, 20));
+        btnTxFile = new QPushButton(QGBCtrlTx);
         btnTxFile->setObjectName(QStringLiteral("btnTxFile"));
-
-        horizontalLayout_4->addWidget(btnTxFile);
-
-        progressBar = new QProgressBar(SerialAssistant);
-        progressBar->setObjectName(QStringLiteral("progressBar"));
-        progressBar->setEnabled(true);
-        progressBar->setGeometry(QRect(10, 646, 171, 16));
-        progressBar->setCursor(QCursor(Qt::ArrowCursor));
-        progressBar->setMaximum(100);
-        progressBar->setValue(0);
-        progressBar->setTextVisible(true);
-        progressBar->setInvertedAppearance(false);
+        btnTxFile->setGeometry(QRect(90, 24, 71, 20));
         toolBox = new QToolBox(SerialAssistant);
         toolBox->setObjectName(QStringLiteral("toolBox"));
-        toolBox->setGeometry(QRect(200, 420, 881, 251));
-        page_1 = new QWidget();
-        page_1->setObjectName(QStringLiteral("page_1"));
-        page_1->setGeometry(QRect(0, 0, 881, 199));
-        btnSend = new QPushButton(page_1);
+        toolBox->setGeometry(QRect(200, 420, 881, 271));
+        single = new QWidget();
+        single->setObjectName(QStringLiteral("single"));
+        single->setGeometry(QRect(0, 0, 881, 219));
+        btnSend = new QPushButton(single);
         btnSend->setObjectName(QStringLiteral("btnSend"));
         btnSend->setGeometry(QRect(20, 10, 71, 41));
-        txtSingle = new QPlainTextEdit(page_1);
+        txtSingle = new QPlainTextEdit(single);
         txtSingle->setObjectName(QStringLiteral("txtSingle"));
         txtSingle->setGeometry(QRect(120, 0, 761, 201));
-        toolBox->addItem(page_1, QString::fromUtf8("\345\215\225\346\235\241\345\217\221\351\200\201"));
-        page_2 = new QWidget();
-        page_2->setObjectName(QStringLiteral("page_2"));
-        page_2->setGeometry(QRect(0, 0, 881, 199));
-        layoutWidget7 = new QWidget(page_2);
+        toolBox->addItem(single, QString::fromUtf8("\345\215\225\346\235\241\345\217\221\351\200\201"));
+        multi = new QWidget();
+        multi->setObjectName(QStringLiteral("multi"));
+        multi->setGeometry(QRect(0, 0, 881, 219));
+        layoutWidget7 = new QWidget(multi);
         layoutWidget7->setObjectName(QStringLiteral("layoutWidget7"));
-        layoutWidget7->setGeometry(QRect(0, 0, 881, 161));
+        layoutWidget7->setGeometry(QRect(0, 0, 881, 211));
         gridLayout_2 = new QGridLayout(layoutWidget7);
         gridLayout_2->setSpacing(6);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
         gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
         gridLayout_2->setContentsMargins(0, 0, 0, 0);
-        btnMultiPush10 = new QPushButton(layoutWidget7);
-        btnMultiPush10->setObjectName(QStringLiteral("btnMultiPush10"));
+        txtLine01 = new QLineEdit(layoutWidget7);
+        txtLine01->setObjectName(QStringLiteral("txtLine01"));
 
-        gridLayout_2->addWidget(btnMultiPush10, 4, 4, 1, 1);
-
-        txtLine10 = new QLineEdit(layoutWidget7);
-        txtLine10->setObjectName(QStringLiteral("txtLine10"));
-
-        gridLayout_2->addWidget(txtLine10, 4, 5, 1, 1);
-
-        txtLine09 = new QLineEdit(layoutWidget7);
-        txtLine09->setObjectName(QStringLiteral("txtLine09"));
-
-        gridLayout_2->addWidget(txtLine09, 3, 5, 1, 1);
-
-        btnMultiPush09 = new QPushButton(layoutWidget7);
-        btnMultiPush09->setObjectName(QStringLiteral("btnMultiPush09"));
-
-        gridLayout_2->addWidget(btnMultiPush09, 3, 4, 1, 1);
-
-        chkMulti02 = new QCheckBox(layoutWidget7);
-        chkMulti02->setObjectName(QStringLiteral("chkMulti02"));
-
-        gridLayout_2->addWidget(chkMulti02, 1, 0, 1, 1);
+        gridLayout_2->addWidget(txtLine01, 0, 2, 1, 1);
 
         btnMultiPush02 = new QPushButton(layoutWidget7);
         btnMultiPush02->setObjectName(QStringLiteral("btnMultiPush02"));
@@ -372,25 +330,15 @@ public:
 
         gridLayout_2->addWidget(txtLine03, 2, 2, 1, 1);
 
-        txtLine01 = new QLineEdit(layoutWidget7);
-        txtLine01->setObjectName(QStringLiteral("txtLine01"));
+        chkMulti02 = new QCheckBox(layoutWidget7);
+        chkMulti02->setObjectName(QStringLiteral("chkMulti02"));
 
-        gridLayout_2->addWidget(txtLine01, 0, 2, 1, 1);
+        gridLayout_2->addWidget(chkMulti02, 1, 0, 1, 1);
 
-        btnMultiPush03 = new QPushButton(layoutWidget7);
-        btnMultiPush03->setObjectName(QStringLiteral("btnMultiPush03"));
+        btnMultiPush09 = new QPushButton(layoutWidget7);
+        btnMultiPush09->setObjectName(QStringLiteral("btnMultiPush09"));
 
-        gridLayout_2->addWidget(btnMultiPush03, 2, 1, 1, 1);
-
-        txtLine02 = new QLineEdit(layoutWidget7);
-        txtLine02->setObjectName(QStringLiteral("txtLine02"));
-
-        gridLayout_2->addWidget(txtLine02, 1, 2, 1, 1);
-
-        btnMultiPush04 = new QPushButton(layoutWidget7);
-        btnMultiPush04->setObjectName(QStringLiteral("btnMultiPush04"));
-
-        gridLayout_2->addWidget(btnMultiPush04, 3, 1, 1, 1);
+        gridLayout_2->addWidget(btnMultiPush09, 3, 4, 1, 1);
 
         btnMultiPush05 = new QPushButton(layoutWidget7);
         btnMultiPush05->setObjectName(QStringLiteral("btnMultiPush05"));
@@ -402,6 +350,21 @@ public:
 
         gridLayout_2->addWidget(txtLine04, 3, 2, 1, 1);
 
+        btnMultiPush04 = new QPushButton(layoutWidget7);
+        btnMultiPush04->setObjectName(QStringLiteral("btnMultiPush04"));
+
+        gridLayout_2->addWidget(btnMultiPush04, 3, 1, 1, 1);
+
+        btnMultiPush03 = new QPushButton(layoutWidget7);
+        btnMultiPush03->setObjectName(QStringLiteral("btnMultiPush03"));
+
+        gridLayout_2->addWidget(btnMultiPush03, 2, 1, 1, 1);
+
+        txtLine02 = new QLineEdit(layoutWidget7);
+        txtLine02->setObjectName(QStringLiteral("txtLine02"));
+
+        gridLayout_2->addWidget(txtLine02, 1, 2, 1, 1);
+
         txtLine05 = new QLineEdit(layoutWidget7);
         txtLine05->setObjectName(QStringLiteral("txtLine05"));
 
@@ -412,35 +375,20 @@ public:
 
         gridLayout_2->addWidget(btnMultiPush01, 0, 1, 1, 1);
 
-        txtLine06 = new QLineEdit(layoutWidget7);
-        txtLine06->setObjectName(QStringLiteral("txtLine06"));
+        btnMultiPush07 = new QPushButton(layoutWidget7);
+        btnMultiPush07->setObjectName(QStringLiteral("btnMultiPush07"));
 
-        gridLayout_2->addWidget(txtLine06, 0, 5, 1, 1);
+        gridLayout_2->addWidget(btnMultiPush07, 1, 4, 1, 1);
 
         txtLine08 = new QLineEdit(layoutWidget7);
         txtLine08->setObjectName(QStringLiteral("txtLine08"));
 
         gridLayout_2->addWidget(txtLine08, 2, 5, 1, 1);
 
-        btnMultiPush07 = new QPushButton(layoutWidget7);
-        btnMultiPush07->setObjectName(QStringLiteral("btnMultiPush07"));
+        txtLine06 = new QLineEdit(layoutWidget7);
+        txtLine06->setObjectName(QStringLiteral("txtLine06"));
 
-        gridLayout_2->addWidget(btnMultiPush07, 1, 4, 1, 1);
-
-        txtLine07 = new QLineEdit(layoutWidget7);
-        txtLine07->setObjectName(QStringLiteral("txtLine07"));
-
-        gridLayout_2->addWidget(txtLine07, 1, 5, 1, 1);
-
-        btnMultiPush08 = new QPushButton(layoutWidget7);
-        btnMultiPush08->setObjectName(QStringLiteral("btnMultiPush08"));
-
-        gridLayout_2->addWidget(btnMultiPush08, 2, 4, 1, 1);
-
-        chkMulti01 = new QCheckBox(layoutWidget7);
-        chkMulti01->setObjectName(QStringLiteral("chkMulti01"));
-
-        gridLayout_2->addWidget(chkMulti01, 0, 0, 1, 1);
+        gridLayout_2->addWidget(txtLine06, 0, 5, 1, 1);
 
         chkMulti05 = new QCheckBox(layoutWidget7);
         chkMulti05->setObjectName(QStringLiteral("chkMulti05"));
@@ -452,6 +400,21 @@ public:
 
         gridLayout_2->addWidget(chkMulti03, 2, 0, 1, 1);
 
+        chkMulti01 = new QCheckBox(layoutWidget7);
+        chkMulti01->setObjectName(QStringLiteral("chkMulti01"));
+
+        gridLayout_2->addWidget(chkMulti01, 0, 0, 1, 1);
+
+        txtLine07 = new QLineEdit(layoutWidget7);
+        txtLine07->setObjectName(QStringLiteral("txtLine07"));
+
+        gridLayout_2->addWidget(txtLine07, 1, 5, 1, 1);
+
+        btnMultiPush08 = new QPushButton(layoutWidget7);
+        btnMultiPush08->setObjectName(QStringLiteral("btnMultiPush08"));
+
+        gridLayout_2->addWidget(btnMultiPush08, 2, 4, 1, 1);
+
         chkMulti04 = new QCheckBox(layoutWidget7);
         chkMulti04->setObjectName(QStringLiteral("chkMulti04"));
 
@@ -462,27 +425,42 @@ public:
 
         gridLayout_2->addWidget(chkMulti06, 0, 3, 1, 1);
 
-        chkMulti07 = new QCheckBox(layoutWidget7);
-        chkMulti07->setObjectName(QStringLiteral("chkMulti07"));
+        chkMulti09 = new QCheckBox(layoutWidget7);
+        chkMulti09->setObjectName(QStringLiteral("chkMulti09"));
 
-        gridLayout_2->addWidget(chkMulti07, 1, 3, 1, 1);
+        gridLayout_2->addWidget(chkMulti09, 3, 3, 1, 1);
 
         chkMulti08 = new QCheckBox(layoutWidget7);
         chkMulti08->setObjectName(QStringLiteral("chkMulti08"));
 
         gridLayout_2->addWidget(chkMulti08, 2, 3, 1, 1);
 
-        chkMulti09 = new QCheckBox(layoutWidget7);
-        chkMulti09->setObjectName(QStringLiteral("chkMulti09"));
-
-        gridLayout_2->addWidget(chkMulti09, 3, 3, 1, 1);
-
         chkMulti10 = new QCheckBox(layoutWidget7);
         chkMulti10->setObjectName(QStringLiteral("chkMulti10"));
 
         gridLayout_2->addWidget(chkMulti10, 4, 3, 1, 1);
 
-        toolBox->addItem(page_2, QString::fromUtf8("\345\244\232\346\235\241\345\217\221\351\200\201"));
+        chkMulti07 = new QCheckBox(layoutWidget7);
+        chkMulti07->setObjectName(QStringLiteral("chkMulti07"));
+
+        gridLayout_2->addWidget(chkMulti07, 1, 3, 1, 1);
+
+        txtLine10 = new QLineEdit(layoutWidget7);
+        txtLine10->setObjectName(QStringLiteral("txtLine10"));
+
+        gridLayout_2->addWidget(txtLine10, 4, 5, 1, 1);
+
+        btnMultiPush10 = new QPushButton(layoutWidget7);
+        btnMultiPush10->setObjectName(QStringLiteral("btnMultiPush10"));
+
+        gridLayout_2->addWidget(btnMultiPush10, 4, 4, 1, 1);
+
+        txtLine09 = new QLineEdit(layoutWidget7);
+        txtLine09->setObjectName(QStringLiteral("txtLine09"));
+
+        gridLayout_2->addWidget(txtLine09, 3, 5, 1, 1);
+
+        toolBox->addItem(multi, QString::fromUtf8("\345\244\232\346\235\241\345\217\221\351\200\201"));
         QGBSerialConfig = new QGroupBox(SerialAssistant);
         QGBSerialConfig->setObjectName(QStringLiteral("QGBSerialConfig"));
         QGBSerialConfig->setGeometry(QRect(10, 10, 171, 211));
@@ -576,42 +554,118 @@ public:
         chkFlowCtrlRTS = new QCheckBox(QGBSerialConfig);
         chkFlowCtrlRTS->setObjectName(QStringLiteral("chkFlowCtrlRTS"));
         chkFlowCtrlRTS->setGeometry(QRect(80, 191, 43, 18));
-        layoutWidget3 = new QWidget(SerialAssistant);
-        layoutWidget3->setObjectName(QStringLiteral("layoutWidget3"));
-        layoutWidget3->setGeometry(QRect(21, 610, 151, 21));
-        horizontalLayout = new QHBoxLayout(layoutWidget3);
+        textBrower = new QPlainTextEdit(SerialAssistant);
+        textBrower->setObjectName(QStringLiteral("textBrower"));
+        textBrower->setGeometry(QRect(200, 10, 881, 401));
+        groupBox = new QGroupBox(SerialAssistant);
+        groupBox->setObjectName(QStringLiteral("groupBox"));
+        groupBox->setGeometry(QRect(10, 610, 171, 81));
+        groupBox->setStyleSheet(QLatin1String("QGroupBox{\n"
+"border-width:1px;\n"
+"border-style:solid;\n"
+"border-radius:4px;\n"
+"font:bold ; \n"
+"}"));
+        layoutWidget2 = new QWidget(groupBox);
+        layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
+        layoutWidget2->setGeometry(QRect(10, 20, 151, 21));
+        horizontalLayout = new QHBoxLayout(layoutWidget2);
         horizontalLayout->setSpacing(6);
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
-        label = new QLabel(layoutWidget3);
+        label = new QLabel(layoutWidget2);
         label->setObjectName(QStringLiteral("label"));
 
         horizontalLayout->addWidget(label);
 
-        lblrxCnt = new QLabel(layoutWidget3);
+        lblrxCnt = new QLabel(layoutWidget2);
         lblrxCnt->setObjectName(QStringLiteral("lblrxCnt"));
         lblrxCnt->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
         horizontalLayout->addWidget(lblrxCnt);
 
-        label_2 = new QLabel(layoutWidget3);
+        label_2 = new QLabel(layoutWidget2);
         label_2->setObjectName(QStringLiteral("label_2"));
 
         horizontalLayout->addWidget(label_2);
 
-        lblrxCnt_2 = new QLabel(layoutWidget3);
-        lblrxCnt_2->setObjectName(QStringLiteral("lblrxCnt_2"));
-        lblrxCnt_2->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        lbltxCnt = new QLabel(layoutWidget2);
+        lbltxCnt->setObjectName(QStringLiteral("lbltxCnt"));
+        lbltxCnt->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        horizontalLayout->addWidget(lblrxCnt_2);
+        horizontalLayout->addWidget(lbltxCnt);
 
-        textBrower = new QPlainTextEdit(SerialAssistant);
-        textBrower->setObjectName(QStringLiteral("textBrower"));
-        textBrower->setGeometry(QRect(200, 10, 881, 401));
+        progressBar = new QProgressBar(groupBox);
+        progressBar->setObjectName(QStringLiteral("progressBar"));
+        progressBar->setEnabled(true);
+        progressBar->setGeometry(QRect(10, 50, 151, 20));
+        progressBar->setCursor(QCursor(Qt::ArrowCursor));
+        progressBar->setMaximum(100);
+        progressBar->setValue(0);
+        progressBar->setTextVisible(true);
+        progressBar->setInvertedAppearance(false);
+        QWidget::setTabOrder(cbbPortNum, cbbBaud);
+        QWidget::setTabOrder(cbbBaud, cbbDataBit);
+        QWidget::setTabOrder(cbbDataBit, cbbVerify);
+        QWidget::setTabOrder(cbbVerify, cbbStopBit);
+        QWidget::setTabOrder(cbbStopBit, btnOpenPort);
+        QWidget::setTabOrder(btnOpenPort, chkMulti02);
+        QWidget::setTabOrder(chkMulti02, btnRefresh);
+        QWidget::setTabOrder(btnRefresh, chkFlowCtrlDTR);
+        QWidget::setTabOrder(chkFlowCtrlDTR, chkFlowCtrlRTS);
+        QWidget::setTabOrder(chkFlowCtrlRTS, btnClear);
+        QWidget::setTabOrder(btnClear, btnPause);
+        QWidget::setTabOrder(btnPause, btnSaveFile);
+        QWidget::setTabOrder(btnSaveFile, chkDisplayHex);
+        QWidget::setTabOrder(chkDisplayHex, checkBox_5);
+        QWidget::setTabOrder(checkBox_5, btnLoadFile);
+        QWidget::setTabOrder(btnLoadFile, btnTxFile);
+        QWidget::setTabOrder(btnTxFile, cbbTerminator);
+        QWidget::setTabOrder(cbbTerminator, cbbVerifyStyle);
+        QWidget::setTabOrder(cbbVerifyStyle, lineEdit);
+        QWidget::setTabOrder(lineEdit, lineEdit_3);
+        QWidget::setTabOrder(lineEdit_3, lineEdit_2);
+        QWidget::setTabOrder(lineEdit_2, chbTxHex);
+        QWidget::setTabOrder(chbTxHex, chbTimedTx);
+        QWidget::setTabOrder(chbTimedTx, spbTxInterval);
+        QWidget::setTabOrder(spbTxInterval, btnSend);
+        QWidget::setTabOrder(btnSend, txtSingle);
+        QWidget::setTabOrder(txtSingle, btnMultiPush01);
+        QWidget::setTabOrder(btnMultiPush01, chkMulti05);
+        QWidget::setTabOrder(chkMulti05, chkMulti04);
+        QWidget::setTabOrder(chkMulti04, btnMultiPush02);
+        QWidget::setTabOrder(btnMultiPush02, btnMultiPush03);
+        QWidget::setTabOrder(btnMultiPush03, btnMultiPush04);
+        QWidget::setTabOrder(btnMultiPush04, btnMultiPush05);
+        QWidget::setTabOrder(btnMultiPush05, txtLine01);
+        QWidget::setTabOrder(txtLine01, txtLine02);
+        QWidget::setTabOrder(txtLine02, txtLine03);
+        QWidget::setTabOrder(txtLine03, txtLine04);
+        QWidget::setTabOrder(txtLine04, txtLine05);
+        QWidget::setTabOrder(txtLine05, chkMulti06);
+        QWidget::setTabOrder(chkMulti06, chkMulti07);
+        QWidget::setTabOrder(chkMulti07, chkMulti08);
+        QWidget::setTabOrder(chkMulti08, chkMulti09);
+        QWidget::setTabOrder(chkMulti09, chkMulti10);
+        QWidget::setTabOrder(chkMulti10, btnMultiPush06);
+        QWidget::setTabOrder(btnMultiPush06, btnMultiPush07);
+        QWidget::setTabOrder(btnMultiPush07, btnMultiPush08);
+        QWidget::setTabOrder(btnMultiPush08, btnMultiPush09);
+        QWidget::setTabOrder(btnMultiPush09, btnMultiPush10);
+        QWidget::setTabOrder(btnMultiPush10, txtLine06);
+        QWidget::setTabOrder(txtLine06, txtLine07);
+        QWidget::setTabOrder(txtLine07, txtLine08);
+        QWidget::setTabOrder(txtLine08, txtLine09);
+        QWidget::setTabOrder(txtLine09, txtLine10);
+        QWidget::setTabOrder(txtLine10, chkMulti01);
+        QWidget::setTabOrder(chkMulti01, chkMulti03);
+        QWidget::setTabOrder(chkMulti03, textBrower);
 
         retranslateUi(SerialAssistant);
         QObject::connect(btnClear, SIGNAL(clicked()), textBrower, SLOT(clear()));
+        QObject::connect(btnClear, SIGNAL(clicked()), lbltxCnt, SLOT(clear()));
+        QObject::connect(btnClear, SIGNAL(clicked()), lblrxCnt, SLOT(clear()));
 
         toolBox->setCurrentIndex(1);
         btnOpenPort->setDefault(false);
@@ -630,7 +684,7 @@ public:
         btnClear->setText(QApplication::translate("SerialAssistant", "\346\270\205\347\251\272", Q_NULLPTR));
         btnPause->setText(QApplication::translate("SerialAssistant", "\346\232\202\345\201\234", Q_NULLPTR));
         QGBCtrlTx->setTitle(QApplication::translate("SerialAssistant", "\350\207\252\345\212\250\345\217\221\351\200\201\346\216\247\345\210\266", Q_NULLPTR));
-        spinBox_2->setSuffix(QString());
+        spbTxInterval->setSuffix(QString());
         lblUnit_ms_2->setText(QApplication::translate("SerialAssistant", "ms", Q_NULLPTR));
         lblTimedTx->setText(QApplication::translate("SerialAssistant", "\345\256\232\346\227\266\345\217\221\351\200\201", Q_NULLPTR));
         lblTerminator->setText(QApplication::translate("SerialAssistant", "\347\273\223\345\260\276\350\207\252\345\212\250\346\267\273\345\212\240", Q_NULLPTR));
@@ -659,28 +713,28 @@ public:
         btnLoadFile->setText(QApplication::translate("SerialAssistant", "\345\212\240\350\275\275\346\226\207\344\273\266", Q_NULLPTR));
         btnTxFile->setText(QApplication::translate("SerialAssistant", "\344\274\240\350\276\223\346\226\207\344\273\266", Q_NULLPTR));
         btnSend->setText(QApplication::translate("SerialAssistant", "\345\217\221\351\200\201", Q_NULLPTR));
-        toolBox->setItemText(toolBox->indexOf(page_1), QApplication::translate("SerialAssistant", "\345\215\225\346\235\241\345\217\221\351\200\201", Q_NULLPTR));
-        btnMultiPush10->setText(QApplication::translate("SerialAssistant", "10", Q_NULLPTR));
-        btnMultiPush09->setText(QApplication::translate("SerialAssistant", "9", Q_NULLPTR));
-        chkMulti02->setText(QString());
+        toolBox->setItemText(toolBox->indexOf(single), QApplication::translate("SerialAssistant", "\345\215\225\346\235\241\345\217\221\351\200\201", Q_NULLPTR));
         btnMultiPush02->setText(QApplication::translate("SerialAssistant", "2", Q_NULLPTR));
         btnMultiPush06->setText(QApplication::translate("SerialAssistant", "6", Q_NULLPTR));
-        btnMultiPush03->setText(QApplication::translate("SerialAssistant", "3", Q_NULLPTR));
-        btnMultiPush04->setText(QApplication::translate("SerialAssistant", "4", Q_NULLPTR));
+        chkMulti02->setText(QString());
+        btnMultiPush09->setText(QApplication::translate("SerialAssistant", "9", Q_NULLPTR));
         btnMultiPush05->setText(QApplication::translate("SerialAssistant", "5", Q_NULLPTR));
+        btnMultiPush04->setText(QApplication::translate("SerialAssistant", "4", Q_NULLPTR));
+        btnMultiPush03->setText(QApplication::translate("SerialAssistant", "3", Q_NULLPTR));
         btnMultiPush01->setText(QApplication::translate("SerialAssistant", "1", Q_NULLPTR));
         btnMultiPush07->setText(QApplication::translate("SerialAssistant", "7", Q_NULLPTR));
-        btnMultiPush08->setText(QApplication::translate("SerialAssistant", "8", Q_NULLPTR));
-        chkMulti01->setText(QString());
         chkMulti05->setText(QString());
         chkMulti03->setText(QString());
+        chkMulti01->setText(QString());
+        btnMultiPush08->setText(QApplication::translate("SerialAssistant", "8", Q_NULLPTR));
         chkMulti04->setText(QString());
         chkMulti06->setText(QString());
-        chkMulti07->setText(QString());
-        chkMulti08->setText(QString());
         chkMulti09->setText(QString());
+        chkMulti08->setText(QString());
         chkMulti10->setText(QString());
-        toolBox->setItemText(toolBox->indexOf(page_2), QApplication::translate("SerialAssistant", "\345\244\232\346\235\241\345\217\221\351\200\201", Q_NULLPTR));
+        chkMulti07->setText(QString());
+        btnMultiPush10->setText(QApplication::translate("SerialAssistant", "10", Q_NULLPTR));
+        toolBox->setItemText(toolBox->indexOf(multi), QApplication::translate("SerialAssistant", "\345\244\232\346\235\241\345\217\221\351\200\201", Q_NULLPTR));
         QGBSerialConfig->setTitle(QApplication::translate("SerialAssistant", "\344\270\262\345\217\243\350\256\276\347\275\256", Q_NULLPTR));
         btnOpenPort->setText(QApplication::translate("SerialAssistant", "\346\211\223\345\274\200\344\270\262\345\217\243", Q_NULLPTR));
         lblPortNum->setText(QApplication::translate("SerialAssistant", "\347\253\257\345\217\243\345\217\267", Q_NULLPTR));
@@ -691,10 +745,11 @@ public:
         btnRefresh->setText(QApplication::translate("SerialAssistant", "\345\210\267\346\226\260", Q_NULLPTR));
         chkFlowCtrlDTR->setText(QApplication::translate("SerialAssistant", "DTR", Q_NULLPTR));
         chkFlowCtrlRTS->setText(QApplication::translate("SerialAssistant", "RTS", Q_NULLPTR));
+        groupBox->setTitle(QApplication::translate("SerialAssistant", "\347\273\237\350\256\241", Q_NULLPTR));
         label->setText(QApplication::translate("SerialAssistant", "Rx:", Q_NULLPTR));
         lblrxCnt->setText(QApplication::translate("SerialAssistant", "0", Q_NULLPTR));
         label_2->setText(QApplication::translate("SerialAssistant", "Tx:", Q_NULLPTR));
-        lblrxCnt_2->setText(QApplication::translate("SerialAssistant", "0", Q_NULLPTR));
+        lbltxCnt->setText(QApplication::translate("SerialAssistant", "0", Q_NULLPTR));
     } // retranslateUi
 
 };

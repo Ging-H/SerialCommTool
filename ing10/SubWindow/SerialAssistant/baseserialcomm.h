@@ -1,12 +1,13 @@
 #ifndef BASESERIALCOMM_H
 #define BASESERIALCOMM_H
 
-#include "ui_serialassistant.h"
-
+//#include "ui_serialassistant.h"
+#include <QComboBox>
+//#include <QWidget>
 #include <QSerialPort>
 #include <QSerialPortInfo>
 #include <QObject>
-
+#include <QAbstractItemView>
 
 class BaseSerialComm : public QSerialPort,public QSerialPortInfo
 {

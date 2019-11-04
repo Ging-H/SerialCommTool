@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1090</width>
-    <height>678</height>
+    <height>704</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -140,7 +140,7 @@ font:bold ;
    <property name="checkable">
     <bool>false</bool>
    </property>
-   <widget class="QSpinBox" name="spinBox_2">
+   <widget class="QSpinBox" name="spbTxInterval">
     <property name="geometry">
      <rect>
       <x>65</x>
@@ -361,60 +361,32 @@ font:bold ;
      </property>
     </item>
    </widget>
-   <widget class="QWidget" name="layoutWidget">
+   <widget class="QPushButton" name="btnLoadFile">
     <property name="geometry">
      <rect>
-      <x>11</x>
-      <y>22</y>
-      <width>151</width>
-      <height>25</height>
+      <x>12</x>
+      <y>24</y>
+      <width>72</width>
+      <height>20</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_4">
-     <item>
-      <widget class="QPushButton" name="btnLoadFile">
-       <property name="text">
-        <string>加载文件</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="btnTxFile">
-       <property name="text">
-        <string>传输文件</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <property name="text">
+     <string>加载文件</string>
+    </property>
    </widget>
-  </widget>
-  <widget class="QProgressBar" name="progressBar">
-   <property name="enabled">
-    <bool>true</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>646</y>
-     <width>171</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="cursor">
-    <cursorShape>ArrowCursor</cursorShape>
-   </property>
-   <property name="maximum">
-    <number>100</number>
-   </property>
-   <property name="value">
-    <number>0</number>
-   </property>
-   <property name="textVisible">
-    <bool>true</bool>
-   </property>
-   <property name="invertedAppearance">
-    <bool>false</bool>
-   </property>
+   <widget class="QPushButton" name="btnTxFile">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>24</y>
+      <width>71</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>传输文件</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QToolBox" name="toolBox">
    <property name="geometry">
@@ -422,19 +394,19 @@ font:bold ;
      <x>200</x>
      <y>420</y>
      <width>881</width>
-     <height>251</height>
+     <height>271</height>
     </rect>
    </property>
    <property name="currentIndex">
     <number>1</number>
    </property>
-   <widget class="QWidget" name="page_1">
+   <widget class="QWidget" name="single">
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>0</y>
       <width>881</width>
-      <height>199</height>
+      <height>219</height>
      </rect>
     </property>
     <attribute name="label">
@@ -464,13 +436,13 @@ font:bold ;
      </property>
     </widget>
    </widget>
-   <widget class="QWidget" name="page_2">
+   <widget class="QWidget" name="multi">
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>0</y>
       <width>881</width>
-      <height>199</height>
+      <height>219</height>
      </rect>
     </property>
     <attribute name="label">
@@ -482,36 +454,12 @@ font:bold ;
        <x>0</x>
        <y>0</y>
        <width>881</width>
-       <height>161</height>
+       <height>211</height>
       </rect>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
-      <item row="4" column="4">
-       <widget class="QPushButton" name="btnMultiPush10">
-        <property name="text">
-         <string>10</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="5">
-       <widget class="QLineEdit" name="txtLine10"/>
-      </item>
-      <item row="3" column="5">
-       <widget class="QLineEdit" name="txtLine09"/>
-      </item>
-      <item row="3" column="4">
-       <widget class="QPushButton" name="btnMultiPush09">
-        <property name="text">
-         <string>9</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QCheckBox" name="chkMulti02">
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
+      <item row="0" column="2">
+       <widget class="QLineEdit" name="txtLine01"/>
       </item>
       <item row="1" column="1">
        <widget class="QPushButton" name="btnMultiPush02">
@@ -530,23 +478,17 @@ font:bold ;
       <item row="2" column="2">
        <widget class="QLineEdit" name="txtLine03"/>
       </item>
-      <item row="0" column="2">
-       <widget class="QLineEdit" name="txtLine01"/>
-      </item>
-      <item row="2" column="1">
-       <widget class="QPushButton" name="btnMultiPush03">
+      <item row="1" column="0">
+       <widget class="QCheckBox" name="chkMulti02">
         <property name="text">
-         <string>3</string>
+         <string/>
         </property>
        </widget>
       </item>
-      <item row="1" column="2">
-       <widget class="QLineEdit" name="txtLine02"/>
-      </item>
-      <item row="3" column="1">
-       <widget class="QPushButton" name="btnMultiPush04">
+      <item row="3" column="4">
+       <widget class="QPushButton" name="btnMultiPush09">
         <property name="text">
-         <string>4</string>
+         <string>9</string>
         </property>
        </widget>
       </item>
@@ -560,6 +502,23 @@ font:bold ;
       <item row="3" column="2">
        <widget class="QLineEdit" name="txtLine04"/>
       </item>
+      <item row="3" column="1">
+       <widget class="QPushButton" name="btnMultiPush04">
+        <property name="text">
+         <string>4</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QPushButton" name="btnMultiPush03">
+        <property name="text">
+         <string>3</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QLineEdit" name="txtLine02"/>
+      </item>
       <item row="4" column="2">
        <widget class="QLineEdit" name="txtLine05"/>
       </item>
@@ -570,12 +529,6 @@ font:bold ;
         </property>
        </widget>
       </item>
-      <item row="0" column="5">
-       <widget class="QLineEdit" name="txtLine06"/>
-      </item>
-      <item row="2" column="5">
-       <widget class="QLineEdit" name="txtLine08"/>
-      </item>
       <item row="1" column="4">
        <widget class="QPushButton" name="btnMultiPush07">
         <property name="text">
@@ -583,22 +536,11 @@ font:bold ;
         </property>
        </widget>
       </item>
-      <item row="1" column="5">
-       <widget class="QLineEdit" name="txtLine07"/>
+      <item row="2" column="5">
+       <widget class="QLineEdit" name="txtLine08"/>
       </item>
-      <item row="2" column="4">
-       <widget class="QPushButton" name="btnMultiPush08">
-        <property name="text">
-         <string>8</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QCheckBox" name="chkMulti01">
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
+      <item row="0" column="5">
+       <widget class="QLineEdit" name="txtLine06"/>
       </item>
       <item row="4" column="0">
        <widget class="QCheckBox" name="chkMulti05">
@@ -611,6 +553,23 @@ font:bold ;
        <widget class="QCheckBox" name="chkMulti03">
         <property name="text">
          <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QCheckBox" name="chkMulti01">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="5">
+       <widget class="QLineEdit" name="txtLine07"/>
+      </item>
+      <item row="2" column="4">
+       <widget class="QPushButton" name="btnMultiPush08">
+        <property name="text">
+         <string>8</string>
         </property>
        </widget>
       </item>
@@ -628,8 +587,8 @@ font:bold ;
         </property>
        </widget>
       </item>
-      <item row="1" column="3">
-       <widget class="QCheckBox" name="chkMulti07">
+      <item row="3" column="3">
+       <widget class="QCheckBox" name="chkMulti09">
         <property name="text">
          <string/>
         </property>
@@ -642,19 +601,32 @@ font:bold ;
         </property>
        </widget>
       </item>
-      <item row="3" column="3">
-       <widget class="QCheckBox" name="chkMulti09">
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
       <item row="4" column="3">
        <widget class="QCheckBox" name="chkMulti10">
         <property name="text">
          <string/>
         </property>
        </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QCheckBox" name="chkMulti07">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="5">
+       <widget class="QLineEdit" name="txtLine10"/>
+      </item>
+      <item row="4" column="4">
+       <widget class="QPushButton" name="btnMultiPush10">
+        <property name="text">
+         <string>10</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="5">
+       <widget class="QLineEdit" name="txtLine09"/>
       </item>
      </layout>
     </widget>
@@ -845,52 +817,6 @@ font:bold ;
     </property>
    </widget>
   </widget>
-  <widget class="QWidget" name="layoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>21</x>
-     <y>610</y>
-     <width>151</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <layout class="QHBoxLayout" name="horizontalLayout">
-    <item>
-     <widget class="QLabel" name="label">
-      <property name="text">
-       <string>Rx:</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLabel" name="lblrxCnt">
-      <property name="text">
-       <string>0</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLabel" name="label_2">
-      <property name="text">
-       <string>Tx:</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLabel" name="lblrxCnt_2">
-      <property name="text">
-       <string>0</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
   <widget class="QPlainTextEdit" name="textBrower">
    <property name="geometry">
     <rect>
@@ -901,8 +827,162 @@ font:bold ;
     </rect>
    </property>
   </widget>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>610</y>
+     <width>171</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QGroupBox{
+border-width:1px;
+border-style:solid;
+border-radius:4px;
+font:bold ; 
+}</string>
+   </property>
+   <property name="title">
+    <string>统计</string>
+   </property>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>151</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Rx:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="lblrxCnt">
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Tx:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="lbltxCnt">
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QProgressBar" name="progressBar">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>50</y>
+      <width>151</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>ArrowCursor</cursorShape>
+    </property>
+    <property name="maximum">
+     <number>100</number>
+    </property>
+    <property name="value">
+     <number>0</number>
+    </property>
+    <property name="textVisible">
+     <bool>true</bool>
+    </property>
+    <property name="invertedAppearance">
+     <bool>false</bool>
+    </property>
+   </widget>
+  </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>cbbPortNum</tabstop>
+  <tabstop>cbbBaud</tabstop>
+  <tabstop>cbbDataBit</tabstop>
+  <tabstop>cbbVerify</tabstop>
+  <tabstop>cbbStopBit</tabstop>
+  <tabstop>btnOpenPort</tabstop>
+  <tabstop>chkMulti02</tabstop>
+  <tabstop>btnRefresh</tabstop>
+  <tabstop>chkFlowCtrlDTR</tabstop>
+  <tabstop>chkFlowCtrlRTS</tabstop>
+  <tabstop>btnClear</tabstop>
+  <tabstop>btnPause</tabstop>
+  <tabstop>btnSaveFile</tabstop>
+  <tabstop>chkDisplayHex</tabstop>
+  <tabstop>checkBox_5</tabstop>
+  <tabstop>btnLoadFile</tabstop>
+  <tabstop>btnTxFile</tabstop>
+  <tabstop>cbbTerminator</tabstop>
+  <tabstop>cbbVerifyStyle</tabstop>
+  <tabstop>lineEdit</tabstop>
+  <tabstop>lineEdit_3</tabstop>
+  <tabstop>lineEdit_2</tabstop>
+  <tabstop>chbTxHex</tabstop>
+  <tabstop>chbTimedTx</tabstop>
+  <tabstop>spbTxInterval</tabstop>
+  <tabstop>btnSend</tabstop>
+  <tabstop>txtSingle</tabstop>
+  <tabstop>btnMultiPush01</tabstop>
+  <tabstop>chkMulti05</tabstop>
+  <tabstop>chkMulti04</tabstop>
+  <tabstop>btnMultiPush02</tabstop>
+  <tabstop>btnMultiPush03</tabstop>
+  <tabstop>btnMultiPush04</tabstop>
+  <tabstop>btnMultiPush05</tabstop>
+  <tabstop>txtLine01</tabstop>
+  <tabstop>txtLine02</tabstop>
+  <tabstop>txtLine03</tabstop>
+  <tabstop>txtLine04</tabstop>
+  <tabstop>txtLine05</tabstop>
+  <tabstop>chkMulti06</tabstop>
+  <tabstop>chkMulti07</tabstop>
+  <tabstop>chkMulti08</tabstop>
+  <tabstop>chkMulti09</tabstop>
+  <tabstop>chkMulti10</tabstop>
+  <tabstop>btnMultiPush06</tabstop>
+  <tabstop>btnMultiPush07</tabstop>
+  <tabstop>btnMultiPush08</tabstop>
+  <tabstop>btnMultiPush09</tabstop>
+  <tabstop>btnMultiPush10</tabstop>
+  <tabstop>txtLine06</tabstop>
+  <tabstop>txtLine07</tabstop>
+  <tabstop>txtLine08</tabstop>
+  <tabstop>txtLine09</tabstop>
+  <tabstop>txtLine10</tabstop>
+  <tabstop>chkMulti01</tabstop>
+  <tabstop>chkMulti03</tabstop>
+  <tabstop>textBrower</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
@@ -918,6 +998,38 @@ font:bold ;
     <hint type="destinationlabel">
      <x>316</x>
      <y>238</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnClear</sender>
+   <signal>clicked()</signal>
+   <receiver>lbltxCnt</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>86</x>
+     <y>265</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>169</x>
+     <y>631</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnClear</sender>
+   <signal>clicked()</signal>
+   <receiver>lblrxCnt</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>68</x>
+     <y>263</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>92</x>
+     <y>631</y>
     </hint>
    </hints>
   </connection>
