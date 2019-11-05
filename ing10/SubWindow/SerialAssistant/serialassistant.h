@@ -8,7 +8,8 @@
 #include <QTime>
 #include <QFile>
 #include <QTextStream>
-
+#include <QPushButton>
+#include <QCheckBox>
 namespace Ui {
 class SerialAssistant;
 }
@@ -43,7 +44,16 @@ public:
     void deleteTxTimer();
     void startTxTimer();
 
+    QString asciiToHexString(QString src);
 
+    bool isHexString(QString src);
+    QByteArray stringToSend(QString src, bool txInHex );
+    QString hexStringToAscii(QString src);
+    void displayTxBuffer(QByteArray &txBuffer);
+
+    QVector < QPushButton *> multiPushButton;
+    QVector < QLineEdit *> multiTxtLine;
+    QVector < QCheckBox *> multiCheckBox;
 
 public slots:
     void slots_serialRxCallback();

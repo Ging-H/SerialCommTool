@@ -7,13 +7,17 @@
 #include <QTextCodec>
 #include <QKeyEvent>
 #include "sreialrx.h"
-#include "newpushbutton.h"
-
 bool SerialAssistant::openPort;      // 打开串口
-bool SerialAssistant::rxPause ;      // 暂停接收
-QString SerialAssistant::terminator; // 结束符 <NONE,CR,CR/LF,LF>
-QString SerialAssistant::verifyType; // 校验码类型<NONE,ADD8,XOR8...>
+//bool SerialAssistant::rxPause ;      // 暂停接收
+//QString SerialAssistant::terminator; // 结束符 <NONE,CR,CR/LF,LF>
+//QString SerialAssistant::verifyType; // 校验码类型<NONE,ADD8,XOR8...>
 
+//TODO: 发送 添加数据校验码,添加结束符
+//      加载,发送文件
+//      统计发送文件的进度
+//      将部分函数转移到serialcomm.cpp
+
+//QTime timerTest; // 可用于测试运行时间
 
 SerialAssistant::SerialAssistant(QWidget *parent) :
     QWidget(parent),
@@ -28,18 +32,49 @@ SerialAssistant::SerialAssistant(QWidget *parent) :
     connect(currentPort,SIGNAL(errorOccurred(QSerialPort::SerialPortError)),this,SLOT(slots_errorHandler(QSerialPort::SerialPortError)) );
     connect(this->ui->txtSingle,SIGNAL(cursorPositionChanged()),this,SLOT(slots_highlightLine()));
 
+    /* 将多个按钮组合起来 */
+    multiPushButton.push_back(ui->btnMultiPush01);
+    multiPushButton.push_back(ui->btnMultiPush02);
+    multiPushButton.push_back(ui->btnMultiPush03);
+    multiPushButton.push_back(ui->btnMultiPush04);
+    multiPushButton.push_back(ui->btnMultiPush05);
+    multiPushButton.push_back(ui->btnMultiPush06);
+    multiPushButton.push_back(ui->btnMultiPush07);
+    multiPushButton.push_back(ui->btnMultiPush08);
+    multiPushButton.push_back(ui->btnMultiPush09);
+    multiPushButton.push_back(ui->btnMultiPush10);
+    foreach (QPushButton *MultiPush, multiPushButton) { // 链接点击信号到一个函数
+        connect(MultiPush,SIGNAL(clicked(bool)),this,SLOT(slots_multiSend()));
+    }
 
-    connect(this->ui->btnMultiPush01,SIGNAL(clicked(bool)),this,SLOT(slots_multiSend()));
-    connect(this->ui->btnMultiPush02,SIGNAL(clicked(bool)),this,SLOT(slots_multiSend()));
-    connect(this->ui->btnMultiPush03,SIGNAL(clicked(bool)),this,SLOT(slots_multiSend()));
-    connect(this->ui->btnMultiPush04,SIGNAL(clicked(bool)),this,SLOT(slots_multiSend()));
-    connect(this->ui->btnMultiPush05,SIGNAL(clicked(bool)),this,SLOT(slots_multiSend()));
-    connect(this->ui->btnMultiPush06,SIGNAL(clicked(bool)),this,SLOT(slots_multiSend()));
-    connect(this->ui->btnMultiPush07,SIGNAL(clicked(bool)),this,SLOT(slots_multiSend()));
-    connect(this->ui->btnMultiPush08,SIGNAL(clicked(bool)),this,SLOT(slots_multiSend()));
-    connect(this->ui->btnMultiPush09,SIGNAL(clicked(bool)),this,SLOT(slots_multiSend()));
-    connect(this->ui->btnMultiPush10,SIGNAL(clicked(bool)),this,SLOT(slots_multiSend()));
+    /* 将多条文本组合起来 */
+    multiTxtLine.push_back(ui->txtLine01);
+    multiTxtLine.push_back(ui->txtLine02);
+    multiTxtLine.push_back(ui->txtLine03);
+    multiTxtLine.push_back(ui->txtLine04);
+    multiTxtLine.push_back(ui->txtLine05);
+    multiTxtLine.push_back(ui->txtLine06);
+    multiTxtLine.push_back(ui->txtLine07);
+    multiTxtLine.push_back(ui->txtLine08);
+    multiTxtLine.push_back(ui->txtLine09);
+    multiTxtLine.push_back(ui->txtLine10);
 
+    /* 将多个CheckBox组合起来 */
+    multiCheckBox.push_back(ui->chkMulti01);
+    multiCheckBox.push_back(ui->chkMulti02);
+    multiCheckBox.push_back(ui->chkMulti03);
+    multiCheckBox.push_back(ui->chkMulti04);
+    multiCheckBox.push_back(ui->chkMulti05);
+    multiCheckBox.push_back(ui->chkMulti06);
+    multiCheckBox.push_back(ui->chkMulti07);
+    multiCheckBox.push_back(ui->chkMulti08);
+    multiCheckBox.push_back(ui->chkMulti09);
+    multiCheckBox.push_back(ui->chkMulti10);
+
+    disconnect(this->ui->txtSingle,SIGNAL(textChanged()),this,SLOT(on_txtSingle_textChanged()));
+
+
+//    timerTest.start();
 
     ui->toolBox->setCurrentIndex(0);
 }
@@ -86,7 +121,7 @@ void SerialAssistant::on_btnOpenPort_clicked()
             /* 配置端口的波特率等参数 */
             configPort();
             connect(currentPort ,SIGNAL(readyRead()),this,SLOT( slots_serialRxCallback()));// 有数据就直接接收显示
-            this->startRxTimer();// 如果打开了定时器,则使用定时器的超时时间进行接收现实
+            this->startRxTimer();// 如果打开了定时器,则使用定时器的超时时间进行接收显示
 
             ui->btnOpenPort->setText(tr("关闭串口"));
         }else{
@@ -190,7 +225,6 @@ void SerialAssistant::on_btnLoadFile_clicked()
 //    files.open()
     QString loadFilePath = QFileDialog::getSaveFileName(this, "Save File", NULL ,
                                                     "Files (*.txt);;All (*.*)");
-
 }
 /* 设置光标到尾部 槽函数 */
 void SerialAssistant::on_textBrower_textChanged()
@@ -218,26 +252,7 @@ void SerialAssistant::on_btnSend_clicked()
     QByteArray txBuf;
     QString tmpString;
     if(openPort){
-        if(ui->chbTxHex->isChecked() ){
-            tmpString = ui->txtSingle->toPlainText().remove(QRegExp("\\s"));// delete ' '
-            QByteArray tmpTest = tmpString.toLatin1();
-            if(tmpTest.length() & 0x01 )
-            {
-                tmpTest.remove(tmpTest.length()-1, 1);
-                QMessageBox::information(NULL, tr("不支持的输入"),  tr("请输入完整的字节"), 0, 0);
-            }
-            txBuf = QByteArray::fromHex(tmpTest); // ascii to hex
-
-            tmpString = QString::fromLocal8Bit(txBuf );
-
-            QByteArray tmpArray = txBuf.toHex().toUpper();
-            tmpArray = this->insertSpace(tmpArray);
-            ui->txtSingle->setPlainText(QString::fromLocal8Bit(tmpArray));
-            ui->txtSingle->moveCursor(QTextCursor::End);
-        }else{
-            tmpString = ui->txtSingle->toPlainText();
-            txBuf = tmpString.toLocal8Bit();
-        }
+        txBuf = this->stringToSend(ui->txtSingle->toPlainText(),ui->chbTxHex->isChecked());
         /* 显示发送字节数 */
         qint32 txBytes = currentPort->write(txBuf); // 发送数据
         qint32 tmp = ui->lbltxCnt->text().toInt();
@@ -245,14 +260,7 @@ void SerialAssistant::on_btnSend_clicked()
 
         /* 显示发送数据 */
         if( ui->checkBox_5->checkState() ){// 加时间戳
-            // Hex显示
-            if( ui->chkDisplayHex->checkState() ){
-                txBuf = txBuf.toHex().toUpper();
-                txBuf = this->insertSpace(txBuf);
-            }
-            txBuf.insert(0, "[" + QTime::currentTime().toString("hh:mm:ss.zzz") + "]Tx: ");
-            QString strToDisplay = QString::fromLocal8Bit(txBuf);
-            ui->textBrower->appendPlainText(strToDisplay);
+            this->displayTxBuffer(txBuf);
         }
     }
 }
@@ -299,12 +307,9 @@ void SerialAssistant::slots_serialRxCallback()
 void SerialAssistant::on_txtSingle_textChanged()
 {
     if(ui->chbTxHex->isChecked() ){
-        bool isMatch = true;
-        QRegExp regExp("[a-f0-9A-F ]*");
+        bool  isMatch = this->isHexString(ui->txtSingle->toPlainText());
 
-        isMatch = regExp.exactMatch(ui->txtSingle->toPlainText());
-
-        if(!isMatch){// TODO:封装成函数
+        if(!isMatch){
             QString tmp;
             disconnect(this->ui->txtSingle,SIGNAL(textChanged()),this,SLOT(on_txtSingle_textChanged()));
             tmp = ui->txtSingle->toPlainText();
@@ -330,7 +335,7 @@ void SerialAssistant::slots_errorHandler(QSerialPort::SerialPortError error)
     }
 
 }
-
+/* 启动接收控制定时器 */
 void SerialAssistant::startRxTimer()
 {
     /* 勾选"加时间戳"和打开串口都会调用这个函数 */
@@ -347,6 +352,7 @@ void SerialAssistant::startRxTimer()
     }
 }
 
+/* 停止接收定时器 */
 void SerialAssistant::deleteRxTimer()
 {
     /* 停止定时器 */
@@ -356,44 +362,47 @@ void SerialAssistant::deleteRxTimer()
         rxTimer.stop();
     }
 }
+
+/* 发送文本框的光标位置改变 槽函数 光标所在行高亮 */
 void SerialAssistant::slots_highlightLine()
 {
     QList<QTextEdit::ExtraSelection> extraSelections;//提供一种方式显示选择的文本
     QTextEdit::ExtraSelection selection;
 
-    selection.format.setBackground(QColor(Qt::gray).lighter(145));        // 设置背景颜色和亮度
-    selection.format.setProperty(QTextFormat::FullWidthSelection, true); // 选择当前行所有像素
+    selection.format.setBackground(QColor(Qt::gray).lighter(145));       // 设置背景颜色和亮度
+    selection.format.setProperty(QTextFormat::FullWidthSelection, true); // 选择当前行所有像素(宽)
     selection.cursor = ui->txtSingle->textCursor();                      // 高亮当前行
     extraSelections.append(selection);
     ui->txtSingle->setExtraSelections(extraSelections);                  //设置高亮
 }
 
+/* 定时发送点击事件 槽函数 */
 void SerialAssistant::on_chbTimedTx_clicked(bool checked)
 {
     if(checked){
-        this->startTxTimer();
+        if(openPort ){
+            this->startTxTimer();
+        }
 
-    }else{
-        this->deleteTxTimer();
+    }else if(txTimer.isActive()){
+            this->deleteTxTimer();
     }
-
 }
+/* 启动发送控制定时器 */
 void SerialAssistant::startTxTimer()
 {
-    if(openPort ){
-        txTimer.setTimerType(Qt::PreciseTimer );
-        qint32 tmp = ui->spbTxInterval->value();
-        txTimer.start(tmp);
-        connect(&txTimer,SIGNAL(timeout()),this,SLOT(slots_timeOutTx()));
-    }
+    txTimer.setTimerType(Qt::PreciseTimer );
+    qint32 tmp = ui->spbTxInterval->value();
+    txTimer.start(tmp);
+    connect(&txTimer,SIGNAL(timeout()),this,SLOT(slots_timeOutTx()));
 }
+/* 停止发送控制定时器 */
 void SerialAssistant::deleteTxTimer()
 {
     /* 停止定时器 */
-    if(txTimer.isActive()){
-        txTimer.stop();
-        disconnect(&txTimer,SIGNAL(timeout()),this,SLOT(slots_timeOutTx()));
-    }
+    txTimer.stop();
+    disconnect(&txTimer,SIGNAL(timeout()),this,SLOT(slots_timeOutTx()));
+
 }
 
 /* 加时间戳 槽函数 */
@@ -413,96 +422,145 @@ void SerialAssistant::slots_timeOutTx()
         index = ui->toolBox->currentIndex();
         switch(index ){
         case 0:
-            this->on_btnSend_clicked();// 发送单条数据,与点击"发送"按钮功能一致
+            emit this->ui->btnSend->click();// 发送单条数据,与点击"发送"按钮功能一致
             break;
-        case 1://TODO:定时发送
-            // multiSend( index);
-            // 定时进入
-            // 点击按钮动作:进入一个函数,然后调用 multiSend( index),index就是点击的按钮序号
-            // 代码优化:使用函数整合功能的实现
+        case 1:
+            static qint32 i(0);
+            if(!multiCheckBox.value(i)->isChecked()){/* 轮询是否勾选发送 */
+                qint32 j(0),k;
+                i >=9 ? k=0: k=i+1;
+                for( ; j < 9; j++){
+                    if(multiCheckBox.value(k++)->isChecked()){
+                        k--;
+                        j--; // 用于标记没有执行完9次就退出循环
+                        break;
+                    }
+                    if(k>=10)k=0;
+                }
+                if(9 != j){// 搜索到CheckedBox
+                    emit multiPushButton.value(k)->clicked(true);
+                    i = k+1;
+                }
+            }else{
+                emit multiPushButton.value(i++)->clicked(true);
+            }
+            i>=10 ? i=0: 0;
             break;
         }
     }
 }
-//QPushButton
+// MultiPushButton 点击发送 槽函数
 void SerialAssistant::slots_multiSend()
 {
     QPushButton *btn = (QPushButton*) sender();
     if(openPort){
-        qint32 btnNum= btn->text().toInt();
-        QString tmpString;
-        switch (btnNum) {
-        case 1: // button 1
-            tmpString = ui->txtLine01->text();
-            break;
-        case 2: // button 2
-            tmpString = ui->txtLine02->text();
-            break;
-        case 3: // button 3
-            tmpString = ui->txtLine03->text();
-            break;
-        case 4: // button 4
-            tmpString = ui->txtLine04->text();
-            break;
-        case 5: // button 5
-            tmpString = ui->txtLine05->text();
-            break;
-        case 6: // button 6
-            tmpString = ui->txtLine06->text();
-            break;
-        case 7: // button 7
-            tmpString = ui->txtLine07->text();
-            break;
-        case 8: // button 8
-            tmpString = ui->txtLine08->text();
-            break;
-        case 9: // button 9
-            tmpString = ui->txtLine09->text();
-            break;
-        case 10:// button 10
-            tmpString = ui->txtLine10->text();
-            break;
-        default:
-            break;
-        }
-        // TODO:封装成函数
+        QString tmpString = multiTxtLine.value(btn->text().toInt()-1)->text(); // 获取对应的文本
         QByteArray txBuf ;
-        if(ui->chbTxHex->isChecked() ){
-            tmpString = tmpString.remove(QRegExp("\\s"));// delete ' '
-            QByteArray tmpTest = tmpString.toLatin1();
-            if(tmpTest.length() & 0x01 )
-            {
-                tmpTest.remove(tmpTest.length()-1, 1);
-                QMessageBox::information(NULL, tr("不支持的输入"),  tr("请输入完整的字节"), 0, 0);
-            }
-            txBuf = QByteArray::fromHex(tmpTest); // ascii to hex
-        }else{
-            txBuf = tmpString.toLocal8Bit();
-        }
-        currentPort->write(txBuf);
+        txBuf = this->stringToSend(tmpString, ui->chbTxHex->isChecked());
+        qint32 txBytes = currentPort->write(txBuf);
+        /* 显示发送字节数 */
+        qint32 tmp = ui->lbltxCnt->text().toInt();
+        ui->lbltxCnt->setText(QString::number(tmp + txBytes));
+
+        this->displayTxBuffer(txBuf); // 显示发送的数据
     }
 }
+
+/* 定时发送 时间间隔改变 槽函数 */
 void SerialAssistant::on_spbTxInterval_editingFinished()
 {
+    /* 改变定时器发送的 时间间隔 */
     if(txTimer.isActive()){
         qint32 tmp = ui->spbTxInterval->value();
         txTimer.setInterval( tmp );
     }
 }
 
-
+/* Hex发送点击事件 槽函数 */
 void SerialAssistant::on_chbTxHex_clicked(bool checked)
 {
-    // TODO:检查原有的字符串是否符合表达式,不符合则清空,符合则保留
-    QRegExp regExp("[a-f0-9A-F ]+");
     if(checked){
-        ui->txtLine01->setValidator(new QRegExpValidator(regExp,this));
-        ui->txtLine02->setValidator(new QRegExpValidator(regExp,this));
-        ui->txtLine03->setValidator(new QRegExpValidator(regExp,this));
-    }else{
-        ui->txtLine01->setValidator(0);
-        ui->txtLine02->setValidator(0);
-        ui->txtLine03->setValidator(0);
-    }
+        /* 设定输入规则 */
+        QRegExp regExp("[a-f0-9A-F ]*"); // Hex 字符串
+        QRegExpValidator *regExpValidator = new QRegExpValidator (regExp,this);
 
+        /* 将原有的非Hex字符转换成Hex字符 */
+        foreach (QLineEdit *txtLine, multiTxtLine) {// 判断是否是Hex字符串
+            txtLine->setText(this->asciiToHexString(txtLine->text()));
+            txtLine->setValidator(regExpValidator);   // 设置输入规则
+        }
+
+        if(!this->isHexString(ui->txtSingle->toPlainText() ))
+            ui->txtSingle->setPlainText(this->asciiToHexString(ui->txtSingle->toPlainText()));
+        connect(this->ui->txtSingle,SIGNAL(textChanged()),this,SLOT(on_txtSingle_textChanged()));
+    }else{
+        /* 清除所有规则 */
+        foreach (QLineEdit *txtLine, multiTxtLine) {
+            txtLine->setValidator(0);
+            if(this->isHexString(txtLine->text()))  // 判断是否是Hex字符串
+                txtLine->setText(this->hexStringToAscii(txtLine->text()));
+        }
+        disconnect(this->ui->txtSingle,SIGNAL(textChanged()),this,SLOT(on_txtSingle_textChanged()));
+        if(this->isHexString(ui->txtSingle->toPlainText()))  // 判断是否是Hex字符串
+            ui->txtSingle->setPlainText(this->hexStringToAscii(ui->txtSingle->toPlainText()));
+
+    }
+}
+/* ascii to hexString 将ascii字符串转换成hex字符串 "35"->"33 35" */
+QString SerialAssistant::asciiToHexString(QString src)
+{
+    QByteArray buf;
+    buf = src.toLocal8Bit();
+    buf = buf.toHex().toUpper();
+    buf = this->insertSpace(buf );
+    return QString::fromLocal8Bit(buf);
+}
+/* hexString to ascii 将hex字符串转换成ascii字符串 "33 35"->"35" */
+QString SerialAssistant::hexStringToAscii(QString src)
+{
+    QByteArray buf = stringToSend(src ,true);
+    return QString::fromLocal8Bit(buf);
+}
+
+/* 检查src中字符是否符合Hex规则表达式 */
+bool SerialAssistant::isHexString(QString src)
+{
+    bool isMatch = true;
+    QRegExp regExp("[a-f0-9A-F ]*");
+    isMatch = regExp.exactMatch(src);
+    return isMatch;
+}
+/* 将QString 转换成可以直接发送的QByteArray */
+QByteArray SerialAssistant::stringToSend(QString src, bool txInHex )
+{
+    QByteArray buf;
+    QString tmpString ;
+    if(txInHex ){/* 以十六进制发送 */
+        tmpString = src.remove(QRegExp("\\s"));// delete ' '
+        QByteArray tmpTest = tmpString.toLatin1();
+        if(tmpTest.length() & 0x01 ) // 奇数个字符,最后一个字符不能满足转换成Hex数据
+        {
+            tmpTest.remove(tmpTest.length()-1, 1); // 移除并警告
+            QMessageBox::information(NULL, tr("不支持的输入"),  tr("请输入完整的字节"), 0, 0);
+        }
+        buf = QByteArray::fromHex(tmpTest); // ascii to hex(hex字符串转换成 hex数据 ) "33 35"->0x33 0x35
+    }else{
+        buf = src.toLocal8Bit();
+    }
+    return buf;
+}
+
+void SerialAssistant::displayTxBuffer(QByteArray &txBuffer)
+{
+    /* 显示发送数据 */
+    // Hex显示
+    if(txBuffer.isEmpty())
+        return;
+    if( ui->chkDisplayHex->checkState() ){
+        txBuffer = txBuffer.toHex().toUpper();
+        txBuffer = this->insertSpace(txBuffer);
+    }
+    txBuffer.insert(0, "[" + QTime::currentTime().toString("hh:mm:ss.zzz") + "]Tx: ");
+    QString strToDisplay = QString::fromLocal8Bit(txBuffer);
+    ui->textBrower->appendPlainText(strToDisplay);
 }
