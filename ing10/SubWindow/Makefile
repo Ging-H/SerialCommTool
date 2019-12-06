@@ -27,7 +27,8 @@ SYMLINK       = $(QMAKE) -install ln -f -s
 DEL_DIR       = rmdir
 MOVE          = move
 SUBTARGETS    =  \
-		sub-SerialAssistant
+		sub-SerialAssistant \
+		sub-StepperMotor
 
 
 sub-SerialAssistant-qmake_all:  FORCE
@@ -55,6 +56,31 @@ sub-SerialAssistant-install_subtargets: FORCE
 sub-SerialAssistant-uninstall_subtargets: FORCE
 	@if not exist SerialAssistant\ mkdir SerialAssistant\ & if not exist SerialAssistant\ exit 1
 	cd SerialAssistant\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\Ging\Documents\ing10\SubWindow\SerialAssistant\SerialAssistant.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" ) && $(MAKE) -f Makefile uninstall
+sub-StepperMotor-qmake_all:  FORCE
+	@if not exist StepperMotor\ mkdir StepperMotor\ & if not exist StepperMotor\ exit 1
+	cd StepperMotor\ && $(QMAKE) -o Makefile C:\Users\Ging\Documents\ing10\SubWindow\StepperMotor\StepperMotor.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug"
+	cd StepperMotor\ && $(MAKE) -f Makefile qmake_all
+sub-StepperMotor: FORCE
+	@if not exist StepperMotor\ mkdir StepperMotor\ & if not exist StepperMotor\ exit 1
+	cd StepperMotor\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\Ging\Documents\ing10\SubWindow\StepperMotor\StepperMotor.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" ) && $(MAKE) -f Makefile
+sub-StepperMotor-make_first: FORCE
+	@if not exist StepperMotor\ mkdir StepperMotor\ & if not exist StepperMotor\ exit 1
+	cd StepperMotor\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\Ging\Documents\ing10\SubWindow\StepperMotor\StepperMotor.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" ) && $(MAKE) -f Makefile 
+sub-StepperMotor-all: FORCE
+	@if not exist StepperMotor\ mkdir StepperMotor\ & if not exist StepperMotor\ exit 1
+	cd StepperMotor\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\Ging\Documents\ing10\SubWindow\StepperMotor\StepperMotor.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" ) && $(MAKE) -f Makefile all
+sub-StepperMotor-clean: FORCE
+	@if not exist StepperMotor\ mkdir StepperMotor\ & if not exist StepperMotor\ exit 1
+	cd StepperMotor\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\Ging\Documents\ing10\SubWindow\StepperMotor\StepperMotor.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" ) && $(MAKE) -f Makefile clean
+sub-StepperMotor-distclean: FORCE
+	@if not exist StepperMotor\ mkdir StepperMotor\ & if not exist StepperMotor\ exit 1
+	cd StepperMotor\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\Ging\Documents\ing10\SubWindow\StepperMotor\StepperMotor.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" ) && $(MAKE) -f Makefile distclean
+sub-StepperMotor-install_subtargets: FORCE
+	@if not exist StepperMotor\ mkdir StepperMotor\ & if not exist StepperMotor\ exit 1
+	cd StepperMotor\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\Ging\Documents\ing10\SubWindow\StepperMotor\StepperMotor.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" ) && $(MAKE) -f Makefile install
+sub-StepperMotor-uninstall_subtargets: FORCE
+	@if not exist StepperMotor\ mkdir StepperMotor\ & if not exist StepperMotor\ exit 1
+	cd StepperMotor\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\Ging\Documents\ing10\SubWindow\StepperMotor\StepperMotor.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" ) && $(MAKE) -f Makefile uninstall
 
 Makefile: SubWindow.pro C:/Qt/Qt5.9.0/5.9/mingw53_32/mkspecs/win32-g++/qmake.conf C:/Qt/Qt5.9.0/5.9/mingw53_32/mkspecs/features/spec_pre.prf \
 		C:/Qt/Qt5.9.0/5.9/mingw53_32/mkspecs/qdevice.pri \
@@ -388,35 +414,47 @@ SubWindow.pro:
 qmake: FORCE
 	@$(QMAKE) -o Makefile SubWindow.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug"
 
-qmake_all: sub-SerialAssistant-qmake_all FORCE
+qmake_all: sub-SerialAssistant-qmake_all sub-StepperMotor-qmake_all FORCE
 
-make_first: sub-SerialAssistant-make_first  FORCE
-all: sub-SerialAssistant-all  FORCE
-clean: sub-SerialAssistant-clean  FORCE
-distclean: sub-SerialAssistant-distclean  FORCE
+make_first: sub-SerialAssistant-make_first sub-StepperMotor-make_first  FORCE
+all: sub-SerialAssistant-all sub-StepperMotor-all  FORCE
+clean: sub-SerialAssistant-clean sub-StepperMotor-clean  FORCE
+distclean: sub-SerialAssistant-distclean sub-StepperMotor-distclean  FORCE
 	-$(DEL_FILE) Makefile
-install_subtargets: sub-SerialAssistant-install_subtargets FORCE
-uninstall_subtargets: sub-SerialAssistant-uninstall_subtargets FORCE
+install_subtargets: sub-SerialAssistant-install_subtargets sub-StepperMotor-install_subtargets FORCE
+uninstall_subtargets: sub-SerialAssistant-uninstall_subtargets sub-StepperMotor-uninstall_subtargets FORCE
 
 sub-SerialAssistant-debug:
 	@if not exist SerialAssistant\ mkdir SerialAssistant\ & if not exist SerialAssistant\ exit 1
 	cd SerialAssistant\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\Ging\Documents\ing10\SubWindow\SerialAssistant\SerialAssistant.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" ) && $(MAKE) -f Makefile debug
-debug: sub-SerialAssistant-debug
+sub-StepperMotor-debug:
+	@if not exist StepperMotor\ mkdir StepperMotor\ & if not exist StepperMotor\ exit 1
+	cd StepperMotor\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\Ging\Documents\ing10\SubWindow\StepperMotor\StepperMotor.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" ) && $(MAKE) -f Makefile debug
+debug: sub-SerialAssistant-debug sub-StepperMotor-debug
 
 sub-SerialAssistant-release:
 	@if not exist SerialAssistant\ mkdir SerialAssistant\ & if not exist SerialAssistant\ exit 1
 	cd SerialAssistant\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\Ging\Documents\ing10\SubWindow\SerialAssistant\SerialAssistant.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" ) && $(MAKE) -f Makefile release
-release: sub-SerialAssistant-release
+sub-StepperMotor-release:
+	@if not exist StepperMotor\ mkdir StepperMotor\ & if not exist StepperMotor\ exit 1
+	cd StepperMotor\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\Ging\Documents\ing10\SubWindow\StepperMotor\StepperMotor.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" ) && $(MAKE) -f Makefile release
+release: sub-SerialAssistant-release sub-StepperMotor-release
 
 sub-SerialAssistant-check:
 	@if not exist SerialAssistant\ mkdir SerialAssistant\ & if not exist SerialAssistant\ exit 1
 	cd SerialAssistant\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\Ging\Documents\ing10\SubWindow\SerialAssistant\SerialAssistant.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" ) && $(MAKE) -f Makefile check
-check: sub-SerialAssistant-check
+sub-StepperMotor-check:
+	@if not exist StepperMotor\ mkdir StepperMotor\ & if not exist StepperMotor\ exit 1
+	cd StepperMotor\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\Ging\Documents\ing10\SubWindow\StepperMotor\StepperMotor.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" ) && $(MAKE) -f Makefile check
+check: sub-SerialAssistant-check sub-StepperMotor-check
 
 sub-SerialAssistant-benchmark:
 	@if not exist SerialAssistant\ mkdir SerialAssistant\ & if not exist SerialAssistant\ exit 1
 	cd SerialAssistant\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\Ging\Documents\ing10\SubWindow\SerialAssistant\SerialAssistant.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" ) && $(MAKE) -f Makefile benchmark
-benchmark: sub-SerialAssistant-benchmark
+sub-StepperMotor-benchmark:
+	@if not exist StepperMotor\ mkdir StepperMotor\ & if not exist StepperMotor\ exit 1
+	cd StepperMotor\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\Ging\Documents\ing10\SubWindow\StepperMotor\StepperMotor.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" ) && $(MAKE) -f Makefile benchmark
+benchmark: sub-SerialAssistant-benchmark sub-StepperMotor-benchmark
 install:install_subtargets  FORCE
 
 uninstall: uninstall_subtargets FORCE

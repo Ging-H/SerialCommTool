@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT       += serialport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -25,13 +26,29 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    ../SubWindow/SerialAssistant/baseserialcomm.cpp \
+    ../SubWindow/SerialAssistant/serialassistant.cpp \
+    ../SubWindow/SerialAssistant/crc32.c \
+    ../SubWindow/SerialAssistant/crcccitt.c \
+    ../SubWindow/StepperMotor/steppermotor.cpp
+
+
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    ../SubWindow/SerialAssistant/baseserialcomm.h \
+    ../SubWindow/SerialAssistant/checksum.h \
+    ../SubWindow/SerialAssistant/serialassistant.h \
+    ui_mainwindow.h \
+    ui_serialassistant.h \
+    ../SubWindow/StepperMotor/steppermotor.h
+
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    ../SubWindow/SerialAssistant/serialassistant.ui \
+    ../SubWindow/StepperMotor/steppermotor.ui
 
 
 
@@ -44,3 +61,9 @@ DESTDIR = ../debug
 DESTDIR = ../release
 # LIBS  += -L ../release -lSerialComm
 }
+
+#RESOURCES += \
+#    ../SubWindow/SerialAssistant/images.qrc
+
+RESOURCES += \
+    images.qrc

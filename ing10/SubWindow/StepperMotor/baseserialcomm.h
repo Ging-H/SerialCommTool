@@ -6,7 +6,7 @@
 #include <QSerialPortInfo>
 #include <QAbstractItemView>
 
-#define USE_CRC_MODULE // 使用 CRC校验模块才会使用这个宏
+//#define USE_CRC_MODULE // 使用 CRC校验模块才会使用这个宏
 class BaseSerialComm : public QSerialPort,public QSerialPortInfo
 {
     Q_OBJECT

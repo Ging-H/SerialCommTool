@@ -1,12 +1,11 @@
-#include "mainwindow.h"
+#include "steppermotor.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w;
+    StepperMotor w;
     w.show();
-    emit  w.slots_btnClicked(NULL);
 
     return a.exec();
 }

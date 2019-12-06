@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2019-10-22T14:15:51
+# Project created by QtCreator 2019-11-24T19:23:46
 #
 #-------------------------------------------------
 
@@ -9,7 +9,7 @@ QT       += serialport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = SerialAssistant
+TARGET = StepperMotor
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -25,41 +25,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
-    baseserialcomm.cpp \
-    main.cpp \
-    serialassistant.cpp \
-    crcccitt.c \
-    crc32.c
+        main.cpp \
+        steppermotor.cpp\
+        baseserialcomm.cpp
 
 
 HEADERS += \
-    baseserialcomm.h \
-    serialassistant.h \
-    ui_serialassistant.h \
+        steppermotor.h\
+        baseserialcomm.h
 
 
 FORMS += \
-    serialassistant.ui
-
-
-
-# 配置输出路径: debug和release模式下的输出路径
-# 配置动态链接库的路径: debug和release模式下的dll路径
-CONFIG(debug, debug|release){
-DESTDIR = ../../debug                 # .exe 路径
-#LIBS  += -L ../../debug -lSerialComm # .dll 路径
-}else {
-DESTDIR = ../../release
-#LIBS  += -L ../../release -lSerialComm
-}
-
-DISTFILES += \
-    theme/default.qss
+        steppermotor.ui
 
 RESOURCES += \
     images.qrc
-
-
-
-
-

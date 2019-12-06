@@ -8,6 +8,10 @@
 #include <QTime>
 #include <QFile>
 #include <QTextStream>
+#include <QPushButton>
+#include <QCheckBox>
+//#include <QSharedMemory>
+
 
 namespace Ui {
 class SerialAssistant;
@@ -21,29 +25,43 @@ public:
     explicit SerialAssistant(QWidget *parent = 0);
     ~SerialAssistant();
 
-    static bool openPort;      // 打开串口
-    static bool rxPause ;      // 暂停接收
-    static QString terminator; // 结束符    <NONE,CR,CR/LF,LF>
-    static QString verifyType; // 校验码类型 <NONE,ADD8,XOR8...>
+    static bool openPort;        // 打开串口
+    static bool rxPause ;        // 暂停接收
+    static qint32 const pgsBarUpRate = 100;  // 进度条的更新时间间隔
+    static qint32 pgsBarInc;     // 用于进度条更新增量
+
+    QList<QString> saveText;  // 用于临时保存文本数据
+    QList<QString> saveArray; // 用于临时保存Hex数据
     QTimer rxTimer; // 接收用的定时器
     QTimer txTimer; // 发送用的定时器
+
 
     QFile   *saveFile;
     QFile   *loadFile;
     QTextStream *streamToSave;
-
+    QTextStream *streamToend;
     BaseSerialComm *currentPort;   // 端口号
 
+
     void initComboBox_Config();    // 初始化串口配置的下拉列表(ComboBox)
-//    void insertSpace(QByteArray &array);
-    QByteArray insertSpace(QByteArray &array);
     void configPort();
     void deleteRxTimer();
     void startRxTimer();
     void deleteTxTimer();
     void startTxTimer();
 
+//    QString asciiToHexString(QString src);
 
+    bool isHexString(QString src);
+    QByteArray stringToSend(QString src, bool txInHex );
+//    QString hexStringToAscii(QString src);
+
+    QVector < QPushButton *> multiPushButton;
+    QVector < QLineEdit *> multiTxtLine;
+    QVector < QCheckBox *> multiCheckBox;
+
+signals:
+    void signals_displayTxBuffer(QByteArray &txBuffer);
 
 public slots:
     void slots_serialRxCallback();
@@ -51,6 +69,8 @@ public slots:
     void slots_highlightLine();
     void slots_timeOutTx();
     void slots_multiSend();
+    void slots_timeOutProgressBar();
+    void slots_displayTxBuffer(QByteArray &txBuffer);
 
 private slots:
     void on_btnOpenPort_clicked();
@@ -76,9 +96,12 @@ private slots:
     void on_checkBox_5_clicked(bool checked);
 
     void on_spbTxInterval_editingFinished();
-//    void on_btnMultiPush01_clicked();
 
     void on_chbTxHex_clicked(bool checked);
+
+    void on_spbRxInterval_editingFinished();
+
+    void on_btnTxFile_clicked(bool checked);
 
 private:
     Ui::SerialAssistant *ui;

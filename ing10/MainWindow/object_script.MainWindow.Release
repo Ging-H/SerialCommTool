@@ -1,0 +1,14 @@
+INPUT(
+./release\main.o
+./release\mainwindow.o
+./release\baseserialcomm.o
+./release\serialassistant.o
+./release\crc32.o
+./release\crcccitt.o
+./release\steppermotor.o
+./release\qrc_images.o
+./release\moc_mainwindow.o
+./release\moc_baseserialcomm.o
+./release\moc_serialassistant.o
+./release\moc_steppermotor.o
+);
